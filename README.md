@@ -98,7 +98,7 @@ Wedding-Details-Needed-v2.docx  Checklist the couple fills in (names, ceremonies
    - Chaak Bhaat (`#mehendi`): henna mandala draws itself, circular card reveal
    - Lagan Sagai (`#lagan`): a field of diyas lights up one by one
    - Wedding (pinned): red velvet curtains part to reveal the mandap with sacred fire
-5. **The Venue** (`#venue`): a live Google Map (keyless embed `maps.google.com/maps?q=…&output=embed`) in a gold arched frame, with a dropping gold pin, the ceremonies held there, and "Get Directions" / "Open in Google Maps" buttons. Set `venueName`, `venueArea`, `mapQuery` (and optionally an exact `mapLink`) in `config.js`.
+5. **The Venues** (`#venue`): one gold-framed live Google Map card per place from `WEDDING.venues` (house = Galaxy Vega Apartment Tower 3, Uttam Nagar, New Delhi; hall = Khalsa Gardens, Suraj Kund Badkhal Rd, Faridabad), with the ceremonies held there, "Get Directions" and "Open in Google Maps" (the client's exact share links). Each event has `place: "house" | "hall"` and its card gets a "View on map" button. Maps use the keyless embed `maps.google.com/maps?q=…&output=embed`.
 6. **Rings** (`#rings`, pinned): two 3D rings spin together, then an infinity path draws itself.
 7. **Countdown** (`#countdown`): digit roll-in, live flip digits, golden fireworks.
 8. **Finale** (`#finale`): couple's names formed by gold particles (they react to the cursor and scatter on click), rose rain, fireworks, "Relive the invitation" button.
@@ -133,8 +133,10 @@ Sound cues are in `FILM.cues`.
 | Haldi | 31 Jan 2027, 12:00 PM onwards, at the family residence |
 | Mehendi & Sangeet (combined) | 31 Jan 2027, 7:00 PM onwards, at residence |
 | Chaak Bhaat | 1 Feb 2027, time not given, at residence |
-| Lagan Sagai | 2 Feb 2027, 5:00 PM onwards. **Venue not given; assumed Khalsa Garden.** |
-| Wedding | 2 Feb 2027, **time not given**, Khalsa Garden, Suraj Kund, Faridabad |
+| Lagan Sagai | 2 Feb 2027, 5:00 PM onwards, Khalsa Gardens (hall) |
+| Wedding | 2 Feb 2027, **time not given**, Khalsa Gardens, Suraj Kund, Faridabad |
+| House (Haldi, Mehendi & Sangeet, Chaak Bhaat) | Galaxy Vega Apartment Tower 3, Plot 3-B, Nawada Rd, Uttam Nagar, New Delhi 110059 (maps.app.goo.gl/UWJPkX2jKbTH4o6j7) |
+| Hall | Khalsa Gardens, Suraj Kund Badkhal Rd, Green Fields Colony, Faridabad 121004 (maps.app.goo.gl/nMGBmLycufdgMkjp6) |
 
 Left blank by the client: initials, family line, blessing line, hashtag, dress codes, descriptions (written by us), colours, language, music, website address.
 
@@ -161,7 +163,6 @@ The countdown targets Lagan Sagai (2 Feb, 5 PM) until the wedding time is known.
 
 1. **Open questions for the client:**
    - Wedding (pheras) start time, and the Chaak Bhaat time
-   - Lagan Sagai venue: confirm Khalsa Garden
    - Bride's family surname, for the family blessing line
    - Optional: dress codes, hashtag, colour theme, Hindi names, music feel
 2. **Hosting:** deploy the folder as a static site (Netlify, Vercel or GitHub Pages all work; no build needed). Then set `siteURL` in `js/config.js` and re-run `tools/make_invite.py` so the QR works. **The QR currently points to `https://your-wedding-site.example` (placeholder).**
