@@ -158,7 +158,8 @@ The countdown targets the wedding (2 Feb, 8 PM).
 - **Names must be clearly visible, never cramped:** bride and groom are separate script words with a small spaced Cinzel "WITH" between them (classes `nm` / `nm-with` / `cn-amp`), on the cards, the couple reveal and the finale (crisp DOM names fade in over the particle names).
 - **The invitation is from the BRIDE'S family.** Hosts = `hosts` in config (Shri Rajendra & Smt. Sunita); wording is "…invite you to the wedding of their daughter Riya with Sagar, son of `groomParents`…" on the website intro, envelope card, finale, video closing card and QR card. "Our residence" = the bride's home.
 - **Delivered on WhatsApp as a video plus a QR card, not as a link.**
-- **Must be phone-friendly.** Mobile tweaks live in the `@media (max-width:768px)` block; `FX.MOBILE` reduces particles.
+- **Must fit every phone.** Checked at 320x568, 360x740, 390x844, 430x932, 768x1024 and 844x390 landscape: no horizontal overflow, pinned scenes fit one screen. Rules live in the "SMALL & SHORT SCREENS" block near the end of `style.css` (compact wedding card for `max-height:760px`, wide envelope card for landscape phones).
+- **Phone-friendly details:** Mobile tweaks live in the `@media (max-width:768px)` block; `FX.MOBILE` reduces particles.
 - **Sound must never autoplay.** It is opt-in only.
 - **No bells or chimes ("ting ting") anywhere** (website or video). `RoyalAudio.allowBells = false` in `audio.js` silences them all; the video's `FILM.cues` also has empty `bells`/`chime`.
 
