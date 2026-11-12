@@ -80,7 +80,7 @@ js/scenes.js        Every ScrollTrigger scene + micro-interactions (tilt, magnet
 js/main.js          Bootstrap: Build → Lenis → FX → Scenes → Intro; scroll unlock after intro.
 js/film.js          Deterministic film timeline. window.renderFrame(t) seeks the GSAP timeline,
                     steps particles at a fixed 60 Hz, pins CSS animations to t, then draws.
-tools/make_invite.py  Playwright + ffmpeg: renders soundtrack, 1050 JPEG frames → H.264 MP4
+tools/make_invite.py  Playwright + ffmpeg: renders soundtrack, about 1500 JPEG frames → H.264 MP4
                     (yuv420p, AAC), and screenshots the card → exports/.
 exports/            Last rendered video + card (placeholder content).
 Wedding-Details-Needed-v2.docx  Checklist the couple fills in (names, ceremonies, style,
