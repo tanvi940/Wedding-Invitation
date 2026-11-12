@@ -158,7 +158,10 @@ ${ICON[e.icon || e.key] || ''}<p class="ec-tag">${e.tag}</p><h3 class="ec-title"
   function venuesHTML() {
     return (W.venues || []).map((v, i) => {
       const q = encodeURIComponent(v.query || v.name), evs = W.events.filter(e => e.place === v.key);
-      const dates = [...new Set(evs.map(e => fmtShort(e.date)))].join(' & ');
+      // e.g. "2 Feb 2027" or "31 Jan & 1 Feb 2027"
+      const days = [...new Set(evs.map(e => fmtShort(e.date)))];
+      const year = evs.length ? new Date(evs[0].date).toLocaleDateString('en-GB', Object.assign({ year: 'numeric' }, tz)) : '';
+      const dates = days.length ? `${days.join(' & ')} ${year}` : '';
       return `<article class="venue-card${i % 2 ? ' flip' : ''}" id="venue-${v.key}">
 <svg class="card-border" aria-hidden="true"><rect class="o" pathLength="1"/><rect class="i" pathLength="1"/></svg>
 <div class="map-frame"><iframe class="map" title="Map to ${v.name}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen src="https://maps.google.com/maps?q=${q}&z=16&output=embed"></iframe><span class="map-corner bl"></span><span class="map-corner br"></span></div>
