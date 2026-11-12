@@ -19,7 +19,8 @@
       bells: [6.1, 24.7, RS + 16.2 / RX], doors: [9.2], whoosh: [[10.2, 2.4], [21, 1.8], [RS - 0.6, 1.4], [28.4 + E, 1.4]],
       chime: [23.4, ...RIT_STEPS.slice(1).map(t => +(RS + t / RX).toFixed(2)), 29.2 + E, 31.5 + E], engine: [15.8, 20.3, 21.3]
     } : {
-      bells: [6.1, 24.7], doors: [9.2], whoosh: [[10.2, 2.4], [21, 1.8]], chime: [23.4, 29.2, 31.5], engine: [15.8, 20.3, 21.3]
+      // client asked for no "ting ting" in the video: no bells / chimes, just music, doors, whooshes and the car
+      bells: [], doors: [9.2], whoosh: [[10.2, 2.4], [21, 1.8]], chime: [], engine: [15.8, 20.3, 21.3]
     },
     ready: false
   };
