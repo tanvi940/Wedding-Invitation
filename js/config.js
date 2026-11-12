@@ -16,9 +16,8 @@ window.WEDDING = {
   // Where the website will live once hosted — the QR card points here
   siteURL: "https://your-wedding-site.example",
 
-  // Our Story + Gallery: leave empty to hide those sections; fill to show them.
-  // story:   { date: "2023-05-20", title: "First Meeting", text: "…", motif: "chai|mountain|diya|ring|lotus|moon", bg: "maroon|emerald|indigo|saffron|plum|teal", img: "images/story-1.jpg" }
-  // gallery: { title: "…", place: "…", motif: "lotus", bg: "maroon", img: "images/gallery-1.jpg" }
+  // No real photos are used anywhere: the couple appears as animated illustrations
+  // (car reveal + "The Rituals" scene). The story/gallery sections were removed.
   story: [],
   gallery: [],
 

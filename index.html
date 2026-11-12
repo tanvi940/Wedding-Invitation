@@ -68,10 +68,9 @@
   <ul>
     <li><a href="#arrival" data-link><span>I</span>The Arrival</a></li>
     <li><a href="#invitation" data-link><span>II</span>Invitation</a></li>
-    <li><a href="#story" data-link><span>III</span>Our Story</a></li>
-    <li><a href="#gallery" data-link><span>IV</span>Moments</a></li>
-    <li><a href="#events" data-link><span>V</span>Celebrations</a></li>
-    <li><a href="#countdown" data-link><span>VI</span>Countdown</a></li>
+    <li><a href="#events" data-link><span>III</span>Celebrations</a></li>
+    <li><a href="#rituals" data-link><span>IV</span>The Rituals</a></li>
+    <li><a href="#countdown" data-link><span>V</span>Countdown</a></li>
   </ul>
 </nav>
 <button class="music-btn" id="music-btn" type="button" aria-pressed="false" aria-label="Toggle music and sound">
@@ -105,7 +104,6 @@
     <div class="couple-halo" aria-hidden="true"></div>
     <figure class="couple-frame">
       <div class="couple-art" data-couple></div>
-      <img src="images/couple.jpg" alt="The bride and groom" onerror="this.remove()">
     </figure>
     <h2 class="couple-names">
       <span class="cn cn-bride gold-text" data-w="bride"></span>
@@ -144,31 +142,6 @@
   </div>
   <div class="sheer sheer-l" aria-hidden="true"></div>
   <div class="sheer sheer-r" aria-hidden="true"></div>
-</section>
-
-<!-- ============ OUR STORY ============ -->
-<section id="story" class="story" aria-label="Our story">
-  <div class="peacock pk-l" aria-hidden="true" data-peacock></div>
-  <div class="peacock pk-r" aria-hidden="true" data-peacock></div>
-  <header class="sec-head">
-    <p class="eyebrow">Chapter I</p>
-    <h2 class="sec-title" data-split="blur">Our Story</h2>
-    <p class="sec-sub">Every royal tale begins with a single glance. Here is ours.</p>
-  </header>
-  <div class="timeline">
-    <div class="tl-track" aria-hidden="true"><div class="tl-fill"></div><div class="tl-head"></div></div>
-    <div data-story></div>
-  </div>
-</section>
-
-<!-- ============ GALLERY ============ -->
-<section id="gallery" class="gallery" aria-label="Gallery">
-  <header class="gal-head">
-    <p class="eyebrow">Chapter II</p>
-    <h2 class="sec-title" data-split="wave">Moments in Gold</h2>
-  </header>
-  <div class="gal-track" data-gallery></div>
-  <div class="gal-progress" aria-hidden="true"><span></span></div>
 </section>
 
 <!-- ============ EVENTS ============ -->
@@ -214,6 +187,22 @@
     <div class="curtain curtain-r" aria-hidden="true"></div>
     <div class="valance" aria-hidden="true"></div>
   </section></section>
+
+<!-- ============ RITUALS (animated couple) ============ -->
+<section id="rituals" class="rituals" aria-label="The wedding rituals">
+  <canvas id="ritual-canvas" aria-hidden="true"></canvas>
+  <div class="rit-head">
+    <p class="eyebrow">The Sacred Rituals</p>
+    <div class="rit-caption" aria-live="polite">
+      <p class="rit-step">Ritual <span class="rit-n">1</span> of 6</p>
+      <h2 class="rit-title">Varmala</h2>
+      <p class="rit-text">The garland exchange — a joyful acceptance of each other.</p>
+      <p class="rit-phera" aria-hidden="true">Phera <span>1</span> of 7</p>
+    </div>
+  </div>
+  <div class="rit-stage" data-rituals></div>
+  <ol class="rit-dots" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li></ol>
+</section>
 
 <!-- ============ RINGS ============ -->
 <section id="rings" class="rings" aria-label="Two rings">
@@ -275,6 +264,7 @@
 <script src="js/fx.js"></script>
 <script src="js/build.js"></script>
 <script src="js/intro.js"></script>
+<script src="js/rituals.js"></script>
 <script src="js/scenes.js"></script>
 <script src="js/main.js"></script>
 </body>

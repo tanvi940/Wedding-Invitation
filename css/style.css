@@ -396,6 +396,27 @@ a{color:inherit}
 .ch-drop.c3 .ch-swing{animation-delay:-3.5s}
 
 /* =========================================================
+   RITUALS — animated couple
+   ========================================================= */
+.rituals{position:relative;height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;background:radial-gradient(ellipse at 50% 80%,#5a1420 0%,#24070f 55%,#0b0306 100%)}
+#ritual-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.rit-head{position:relative;z-index:3;text-align:center;padding:6vh 16px 0}
+.rit-caption{margin-top:.6vh}
+.rit-step{font-family:var(--display);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ivory-2)}
+.rit-title{font-family:var(--script);font-weight:400;font-size:clamp(2.6rem,min(7vw,8vh),5rem);line-height:1.1;color:var(--gold-l);text-shadow:0 0 30px rgba(212,175,55,.35)}
+.rit-text{font-style:italic;color:var(--ivory-2);max-width:34ch;margin:0 auto;font-size:1.08em}
+.rit-phera{margin-top:.8vh;font-family:var(--display);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:0;transition:opacity .4s}
+.rit-phera.on{opacity:1}
+.rit-phera span{display:inline-block;min-width:1ch;color:var(--gold-xl);font-size:1.3em}
+.rit-stage{position:absolute;z-index:1;left:0;right:0;bottom:0;height:62vh}
+.rit-stage svg{width:100%;height:100%;overflow:hidden}
+.rit-stage .fl{transform-box:fill-box;transform-origin:50% 100%;animation:flame .45s ease-in-out infinite alternate}
+.rit-dots{position:absolute;z-index:4;left:0;right:0;bottom:3.5vh;display:flex;justify-content:center;gap:10px;list-style:none}
+.rit-dots li{width:28px;height:3px;border-radius:2px;background:rgba(212,175,55,.25);transition:background .4s,box-shadow .4s}
+.rit-dots li.on{background:var(--gold-l);box-shadow:0 0 8px var(--gold)}
+.rm .rituals{height:auto;min-height:100vh}
+
+/* =========================================================
    RINGS
    ========================================================= */
 .rings{position:relative;height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5vh;padding:0 16px;text-align:center;background:radial-gradient(ellipse at 50% 40%,#22101a,#090305 70%)}

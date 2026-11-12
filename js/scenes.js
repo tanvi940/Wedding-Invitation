@@ -496,7 +496,9 @@ window.Scenes = (function () {
   }
 
   function init(lenis) {
-    headings(); arrivalSetup(); arrivalFX(); invitation(); story(); gallery(); events(); rings(); countdown(); rsvp(); finale(); interactions(lenis);
+    headings(); arrivalSetup(); arrivalFX(); invitation(); story(); gallery(); events();
+    if (window.Rituals) Rituals.init();          // pinned — must be created in page order
+    rings(); countdown(); rsvp(); finale(); interactions(lenis);
   }
 
   return { init, arrivalPlay };
