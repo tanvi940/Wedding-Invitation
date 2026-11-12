@@ -444,6 +444,8 @@ a{color:inherit}
 .venue-card .venue-for{margin-top:1.1em}
 .venue-card .venue-when{margin:.4em 0 1.6em}
 .ec-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+/* phones: the part-open curtains cover ~10% each side, so stack the wedding buttons in the middle */
+@media (max-width:768px) and (orientation:portrait){.ev-wedding .ec-btns{flex-direction:column;align-items:center}}
 .venue-info{text-align:center}
 .venue-pin{width:46px;height:auto;margin:0 auto 10px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
 .venue-for{font-family:var(--display);font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
@@ -639,7 +641,7 @@ a{color:inherit}
   .ic-venue{font-size:2.4cqw;letter-spacing:.24em}
   .rit-head,.sec-head{padding-top:14vh}
   .doors{--dh:72vh;--dw:min(60vh,420px)}
-  .intro-copy{padding:10px;bottom:calc(9vh + 72vh * .06)}
+  .intro-copy{padding:10px;bottom:4vh}
   .intro-title{font-size:2.4rem}
   .intro-actions{margin-top:.6em;gap:4px}
   .btn-royal{min-height:42px;padding:.7em 2em}

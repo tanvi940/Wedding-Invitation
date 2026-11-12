@@ -77,7 +77,7 @@ window.Intro = (function () {
   }
 
   function crestDY() { const d = $('.doors'); return d.offsetTop - h / 2 - 6; }
-  function crestScale() { return Math.min(0.52, 128 / $('.emblem-wrap').offsetWidth); }
+  function crestScale() { return Math.min(0.52, (h < 500 ? 96 : 128) / $('.emblem-wrap').offsetWidth); } // smaller crest on sideways phones so it clears the text
 
   function typeIn() {
     const t2 = gsap.timeline();
