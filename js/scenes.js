@@ -56,9 +56,15 @@ window.Scenes = (function () {
     gsap.set(reveal, { clipPath: 'circle(0% at 50% 50%)', visibility: 'hidden' });
     gsap.set(['.cn-bride', '.cn-groom'], { clipPath: 'inset(-40% 100% -40% -10%)' });
     gsap.set([beam, beamG, distant, flash, hint], { opacity: 0 });
-    wheels.forEach(wh => gsap.set(wh, { svgOrigin: wh.dataset.o }));
-    gsap.set(door, { svgOrigin: '198 107' });
-    gsap.set(chassis, { svgOrigin: '320 192' });
+    // Rotate/scale about fixed SVG points by writing the transform attribute ourselves.
+    // (GSAP's svgOrigin got recalculated on refresh and sent the tyres flying across the screen.)
+    const rig = { spin: 0, door: 1, tilt: 0 };
+    const paint = () => {
+      wheels.forEach(wh => wh.setAttribute('transform', `rotate(${rig.spin} ${wh.dataset.o})`));
+      door.setAttribute('transform', `translate(198 0) scale(${rig.door} 1) translate(-198 0)`);
+      chassis.setAttribute('transform', `rotate(${rig.tilt} 320 192)`);
+    };
+    paint();
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -70,18 +76,18 @@ window.Scenes = (function () {
     });
     tl.fromTo(distant, { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 1, ease: 'power1.out' }, 0.2)
       .to(car, { x: endX, duration: 5, ease: 'power2.out' }, 1)
-      .to(wheels, { rotation: spin, duration: 5, ease: 'power2.out' }, 1)
+      .to(rig, { spin, duration: 5, ease: 'power2.out', onUpdate: paint }, 1)
       .to(distant, { opacity: 0, duration: 0.8 }, 1.7)
       .to([beam, beamG], { opacity: 1, duration: 0.8 }, 1.2)
-      .to(chassis, { rotation: 0.9, duration: 0.35, ease: 'sine.out' }, 5.55)
-      .to(chassis, { rotation: 0, duration: 0.7, ease: 'elastic.out(1,.35)' }, 5.9)
+      .to(rig, { tilt: 0.9, duration: 0.35, ease: 'sine.out', onUpdate: paint }, 5.55)
+      .to(rig, { tilt: 0, duration: 0.7, ease: 'elastic.out(1,.35)', onUpdate: paint }, 5.9)
       .to([beam, beamG], { opacity: 0.55, duration: 0.6 }, 6)
       .to(cam, { scale: MOBILE ? 1.7 : 2, transformOrigin: () => { const p = doorPt(); return `${p.x}px ${p.y}px`; }, duration: 2, ease: 'power2.inOut' }, 6.4)
       .to(pl, { xPercent: -140, duration: 2, ease: 'power2.inOut' }, 6.4)
       .to(pr, { xPercent: 140, duration: 2, ease: 'power2.inOut' }, 6.4)
       .to(arch, { yPercent: -120, duration: 2, ease: 'power2.inOut' }, 6.4)
       .to('.lanterns', { yPercent: -60, opacity: 0, duration: 2, ease: 'power2.in' }, 6.4)
-      .to(door, { scaleX: -0.3, duration: 1, ease: 'power2.inOut' }, 8.3)
+      .to(rig, { door: -0.3, duration: 1, ease: 'power2.inOut', onUpdate: paint }, 8.3)
       .to(interior, { opacity: 1, duration: 0.8 }, 8.3)
       .to(flash, { opacity: 1, duration: 0.5, ease: 'power2.in' }, 9)
       .set(reveal, { visibility: 'visible' }, 9.2)
