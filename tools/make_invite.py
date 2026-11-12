@@ -46,7 +46,7 @@ def main():
         page = browser.new_page()
         page.goto(f"{base}/film.html")
         page.wait_for_function("window.RoyalAudio && window.FILM", timeout=60000)
-        meta = page.evaluate("({d: FILM.duration, c: FILM.cues, song: (window.WEDDING && WEDDING.musicFile) || ''})")
+        meta = page.evaluate("({d: FILM.duration, c: FILM.cues, song: (window.WEDDING && WEDDING.musicFile) || '', start: (window.WEDDING && WEDDING.musicStart) || 0})")
         song = (ROOT / meta["song"]) if meta["song"] else None
         if song and not song.exists():
             print(f"  ! musicFile {meta['song']} not found — using the built-in music")
@@ -65,11 +65,11 @@ def main():
         page.wait_for_timeout(600)
         dur = meta["d"]
         if song:   # custom song under the effects, faded in and out
-            audio_in = ["-i", str(wav), "-stream_loop", "-1", "-i", str(song)]
+            audio_in = ["-i", str(wav), "-ss", str(meta["start"]), "-i", str(song)]
             audio_map = ["-filter_complex",
                          f"[2:a]atrim=0:{dur},volume=0.85,afade=t=in:d=2,afade=t=out:st={dur - 3}:d=3[m];"
                          f"[1:a]volume=1.6[f];[f][m]amix=inputs=2:duration=first:normalize=0[a]",
-                         "-map", "0:v", "-map", "[a]"]
+                         "-map", "0:v", "-map", "[a]"]   # explicit maps also drop the mp3's cover-art stream
         else:
             audio_in = ["-i", str(wav)]
             audio_map = ["-af", "volume=1.8"]

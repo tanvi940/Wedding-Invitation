@@ -9,3 +9,6 @@ __pycache__/
 node_modules/
 .DS_Store
 Thumbs.db
+
+# client-supplied copyrighted song (kept locally; copy it in when hosting)
+music/*.mp3

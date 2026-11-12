@@ -146,7 +146,7 @@ Each event in `config.js` has:
 
 The countdown targets the wedding (2 Feb, 8 PM).
 
-**Custom song:** set `musicFile` in config (e.g. `music/song.mp3`). The website plays it (looped, faded) instead of the synthesized music, and `tools/make_invite.py` mixes it under the sound effects in the video. The client said they will send a new song.
+**Custom song:** set `musicFile` in config (e.g. `music/song.mp3`). The website plays it (looped, faded) instead of the synthesized music, and `tools/make_invite.py` mixes it under the sound effects in the video. **Current song:** Jashn-e-Bahaara instrumental flute (supplied by the client) at `music/jashn-e-bahaara-flute.mp3`, starting at 0 s (`musicStart`). The MP3 is **not committed** (copyrighted, see .gitignore). Copy it into `music/` before hosting or re-rendering, otherwise the built-in sitar music is used.
 
 ## Decisions already made by the client (do not undo)
 

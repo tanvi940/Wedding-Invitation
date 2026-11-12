@@ -31,7 +31,8 @@ window.WEDDING = {
   hashtag: "",
   // Background song: put the file in /music and set its path here (e.g. "music/song.mp3").
   // Empty = the built-in sitar-style music. Used by the website and the WhatsApp video.
-  musicFile: "",
+  musicFile: "music/jashn-e-bahaara-flute.mp3",   // Jashn-e-Bahaara (instrumental flute), supplied by the client
+  musicStart: 0,                                   // seconds into the song where the video's music begins
   // Where the website will live once hosted — the QR card points here
   siteURL: "https://your-wedding-site.example",
 
