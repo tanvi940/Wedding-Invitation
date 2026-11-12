@@ -152,7 +152,26 @@ ${garland}<circle cx="590" cy="134" r="8" fill="#c21f45"/><circle cx="590" cy="1
     return `<svg class="card-border" aria-hidden="true"><rect class="o" pathLength="1"/><rect class="i" pathLength="1"/></svg><div class="card-glow"></div>
 ${ICON[e.icon || e.key] || ''}<p class="ec-tag">${e.tag}</p><h3 class="ec-title">${e.name}</h3><div class="ec-orn"></div>
 <dl class="ec-meta"><div><dt>When</dt><dd>${when(e)}</dd></div><div><dt>Where</dt><dd>${e.venue}</dd></div>${e.dress ? `<div><dt>Attire</dt><dd>${e.dress}</dd></div>` : ''}</dl>
-<p class="ec-blurb">${e.blurb}</p><button class="btn-ghost" type="button" data-ics="${e.key}">Add to calendar</button>`;
+<p class="ec-blurb">${e.blurb}</p><div class="ec-btns">${e.place ? `<a class="btn-ghost" href="#venue-${e.place}" data-link>View on map</a>` : ''}<button class="btn-ghost" type="button" data-ics="${e.key}">Add to calendar</button></div>`;
+  }
+
+  function venuesHTML() {
+    return (W.venues || []).map((v, i) => {
+      const q = encodeURIComponent(v.query || v.name), evs = W.events.filter(e => e.place === v.key);
+      const dates = [...new Set(evs.map(e => fmtShort(e.date)))].join(' & ');
+      return `<article class="venue-card${i % 2 ? ' flip' : ''}" id="venue-${v.key}">
+<svg class="card-border" aria-hidden="true"><rect class="o" pathLength="1"/><rect class="i" pathLength="1"/></svg>
+<div class="map-frame"><iframe class="map" title="Map to ${v.name}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen src="https://maps.google.com/maps?q=${q}&z=16&output=embed"></iframe><span class="map-corner bl"></span><span class="map-corner br"></span></div>
+<div class="venue-info">
+<svg class="venue-pin" viewBox="0 0 48 64" aria-hidden="true"><path d="M24 2C12 2 3 11 3 23c0 16 21 37 21 37s21-21 21-37C45 11 36 2 24 2z" fill="url(#gold-grad)"/><circle cx="24" cy="23" r="8" fill="#3a0d16"/></svg>
+<p class="venue-label">${v.label}</p>
+<h3 class="venue-name">${v.name}</h3>
+<p class="venue-addr">${v.area}</p>
+<p class="venue-for">${evs.map(e => e.name.replace('The ', '')).join(' · ')}</p>
+<p class="venue-when">${dates}</p>
+<div class="venue-btns"><a class="btn-royal magnetic" href="https://www.google.com/maps/dir/?api=1&destination=${q}" target="_blank" rel="noopener"><span>Get Directions</span></a><a class="btn-ghost" href="${v.link || `https://www.google.com/maps/search/?api=1&query=${q}`}" target="_blank" rel="noopener">Open in Google Maps</a></div>
+</div></article>`;
+    }).join('');
   }
 
   function mandala() {
@@ -235,14 +254,8 @@ ${flowers}
       $$(`.menu a[href="#${id}"]`).forEach(a => a.closest('li').remove());
     });
     $$('.menu li a span').forEach((s, i) => { s.textContent = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'][i] || ''; });
-    // venue map + direction links
-    const q = encodeURIComponent(W.mapQuery || W.venue);
-    const map = $('[data-map]'); if (map) map.src = `https://maps.google.com/maps?q=${q}&z=15&output=embed`;
-    $$('[data-directions]').forEach(a => { a.href = `https://www.google.com/maps/dir/?api=1&destination=${q}`; });
-    $$('[data-openmap]').forEach(a => { a.href = W.mapLink || `https://www.google.com/maps/search/?api=1&query=${q}`; });
-    const atVenue = W.events.filter(e => e.venue === W.venue);
-    set('[data-venue-events]', atVenue.map(e => e.name.replace('The ', '')).join(' & '));
-    set('[data-venue-dates]', [...new Set(atVenue.map(e => fmtDay(e.date)))].join(' · '));
+    // venue maps (one card per place)
+    set('[data-venues]', venuesHTML());
     $$('[data-emblem]').forEach(el => { el.innerHTML = emblem(); });
     // diya field (Lagan Sagai)
     let dh = ''; const nD = MOBILE ? 16 : 30;

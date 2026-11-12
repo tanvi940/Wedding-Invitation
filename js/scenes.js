@@ -304,13 +304,17 @@ window.Scenes = (function () {
      VENUE — gold border draws, map unveils through an arch, pin drops
      ========================================================= */
   function venue() {
-    const card = $('.venue-card'); if (!card || RM) return;
-    const st = { trigger: card, start: 'top 75%' };
-    gsap.set('.venue-card .card-border rect', { strokeDashoffset: 1 });
-    gsap.to('.venue-card .card-border rect', { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut', stagger: 0.3, scrollTrigger: st });
-    gsap.fromTo('.map-frame', { clipPath: 'inset(100% 0% 0% 0% round 40px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: 1.6, ease: 'power3.inOut', scrollTrigger: st, onComplete: () => gsap.set('.map-frame', { clearProps: 'clipPath' }) });
-    gsap.from('.venue-pin', { y: -120, opacity: 0, duration: 1.1, ease: 'bounce.out', delay: 0.5, scrollTrigger: st });
-    gsap.from('.venue-info > *:not(.venue-pin)', { opacity: 0, y: 24, duration: 0.9, stagger: 0.12, delay: 0.7, ease: 'power3.out', scrollTrigger: st });
+    if (RM) return;
+    $$('.venue-card').forEach(card => {
+      const st = { trigger: card, start: 'top 75%' }, frame = $('.map-frame', card), flip = card.classList.contains('flip');
+      const rects = $$('.card-border rect', card);
+      gsap.set(rects, { strokeDashoffset: 1 });
+      gsap.to(rects, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut', stagger: 0.3, scrollTrigger: st });
+      gsap.fromTo(frame, { clipPath: 'inset(100% 0% 0% 0% round 40px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: 1.6, ease: 'power3.inOut', scrollTrigger: st, onComplete: () => gsap.set(frame, { clearProps: 'clipPath' }) });
+      gsap.from(card, { x: MOBILE ? 0 : (flip ? 60 : -60), opacity: 0, duration: 1.2, ease: 'power3.out', scrollTrigger: st });
+      gsap.from($('.venue-pin', card), { y: -120, opacity: 0, duration: 1.1, ease: 'bounce.out', delay: 0.5, scrollTrigger: st });
+      gsap.from($$('.venue-info > *:not(.venue-pin)', card), { opacity: 0, y: 24, duration: 0.9, stagger: 0.12, delay: 0.7, ease: 'power3.out', scrollTrigger: st });
+    });
   }
 
   /* =========================================================
