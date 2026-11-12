@@ -4,49 +4,46 @@
    replace the illustrated placeholders automatically.
    ========================================================= */
 window.WEDDING = {
-  bride: "Ananya",
-  groom: "Aarav",
-  initials: ["A", "A"],
-  dateISO: "2027-02-02T18:30:00+05:30",      // ceremony start (used by countdown)
-  city: "Udaipur",
-  venue: "The Royal Palace, Udaipur",
-  families: "Together with the blessings of their families",
-  hashtag: "#AnanyaWedsAarav",
-  // Where the website will live once hosted — every QR card points here (with ?to=<guest>)
+  bride: "Riya",
+  groom: "Sagar",
+  initials: ["R", "S"],
+  // Countdown target. Wedding start time not given yet — counting down to Lagan Sagai (5:00 PM, 2 Feb 2027).
+  dateISO: "2027-02-02T17:00:00+05:30",
+  city: "Faridabad",
+  venue: "Khalsa Garden, Suraj Kund, Faridabad",
+  families: "With the blessings of Shri Rajendra & Smt. Sunita and Shri Kaushal Verma & Smt. Pooja Verma",
+  hashtag: "",
+  // Where the website will live once hosted — the QR card points here
   siteURL: "https://your-wedding-site.example",
 
-  story: [
-    { date: "2019-08-14", title: "A Monsoon Hello", motif: "chai", bg: "maroon", img: "images/story-1.jpg",
-      text: "A rain-soaked café, one shared umbrella and two cups of masala chai that went cold while we talked for hours." },
-    { date: "2021-12-24", title: "The First Journey", motif: "mountain", bg: "indigo", img: "images/story-2.jpg",
-      text: "Snow in the Himalayas, a missed train and the moment we realised every adventure felt like home together." },
-    { date: "2024-11-01", title: "Diwali Under Stars", motif: "diya", bg: "saffron", img: "images/story-3.jpg",
-      text: "Our families met over a hundred glowing diyas — and somewhere between the sweets and fireworks, they became one." },
-    { date: "2026-02-14", title: "The Proposal", motif: "ring", bg: "plum", img: "images/story-4.jpg",
-      text: "On a palace terrace at sunset, one knee, one ring and the easiest 'yes' ever spoken." }
-  ],
+  // Our Story + Gallery: leave empty to hide those sections; fill to show them.
+  // story:   { date: "2023-05-20", title: "First Meeting", text: "…", motif: "chai|mountain|diya|ring|lotus|moon", bg: "maroon|emerald|indigo|saffron|plum|teal", img: "images/story-1.jpg" }
+  // gallery: { title: "…", place: "…", motif: "lotus", bg: "maroon", img: "images/gallery-1.jpg" }
+  story: [],
+  gallery: [],
 
-  gallery: [
-    { title: "Pink City Evenings", place: "Jaipur", motif: "lotus", bg: "maroon", img: "images/gallery-1.jpg" },
-    { title: "Lake of Dreams", place: "Udaipur", motif: "moon", bg: "teal", img: "images/gallery-2.jpg" },
-    { title: "Golden Dunes", place: "Jaisalmer", motif: "mountain", bg: "saffron", img: "images/gallery-3.jpg" },
-    { title: "Temple Bells", place: "Varanasi", motif: "diya", bg: "plum", img: "images/gallery-4.jpg" },
-    { title: "Monsoon Gardens", place: "Kerala", motif: "chai", bg: "emerald", img: "images/gallery-5.jpg" },
-    { title: "Forever Starts", place: "Our Home", motif: "ring", bg: "indigo", img: "images/gallery-6.jpg" }
-  ],
-
+  // date: ISO with +05:30. time: text shown to guests ("" if not decided yet).
+  // scene: which animated scene shows this card — haldi | stage | mandala | diyas | wedding
   events: [
-    { key: "haldi", name: "Haldi", tag: "The Golden Glow", date: "2027-01-31T10:00:00+05:30", hours: 3,
-      venue: "The Marigold Courtyard", dress: "Every shade of sunshine yellow",
-      blurb: "Turmeric, laughter and marigolds — a morning of blessings before the big days." },
-    { key: "mehendi", name: "Mehendi", tag: "Stories in Henna", date: "2027-01-31T16:00:00+05:30", hours: 4,
-      venue: "The Zenana Gardens", dress: "Greens, florals & festive prints",
-      blurb: "Intricate henna, folk songs and an evening painted in deep shades of love." },
-    { key: "sangeet", name: "Sangeet", tag: "A Night of Music", date: "2027-02-01T19:30:00+05:30", hours: 5,
-      venue: "The Durbar Hall", dress: "Indo-western glamour",
-      blurb: "Two families, one stage — dance-offs, dholaks and a night nobody will forget." },
-    { key: "wedding", name: "The Wedding", tag: "Seven Sacred Vows", date: "2027-02-02T18:30:00+05:30", hours: 5,
-      venue: "The Palace Mandap", dress: "Royal traditional",
+    { key: "haldi", scene: "haldi", icon: "haldi", name: "Haldi", tag: "The Golden Glow",
+      date: "2027-01-31T12:00:00+05:30", time: "12:00 PM onwards", hours: 4,
+      venue: "At our residence", dress: "",
+      blurb: "Turmeric, laughter and marigolds — a sunny afternoon of blessings at home." },
+    { key: "mehendi-sangeet", scene: "stage", icon: "sangeet", name: "Mehendi & Sangeet", tag: "Henna & Music",
+      date: "2027-01-31T19:00:00+05:30", time: "7:00 PM onwards", hours: 4,
+      venue: "At our residence", dress: "",
+      blurb: "Henna, dholak and dancing — an evening of colour and music with the whole family." },
+    { key: "chaak-bhaat", scene: "mandala", icon: "mehendi", name: "Chaak Bhaat", tag: "Family Blessings",
+      date: "2027-02-01T00:00:00+05:30", time: "", hours: 0,
+      venue: "At our residence", dress: "",
+      blurb: "Cherished family traditions — the Chaak puja and the Bhaat, filled with blessings from the maternal family." },
+    { key: "lagan-sagai", scene: "diyas", icon: "ring", name: "Lagan Sagai", tag: "The Sacred Promise",
+      date: "2027-02-02T17:00:00+05:30", time: "5:00 PM onwards", hours: 2,
+      venue: "Khalsa Garden, Suraj Kund, Faridabad", dress: "",
+      blurb: "The two families come together for the sacred Lagan and Sagai rituals." },
+    { key: "wedding", scene: "wedding", icon: "wedding", name: "The Wedding", tag: "Seven Sacred Vows",
+      date: "2027-02-02T00:00:00+05:30", time: "", hours: 0,
+      venue: "Khalsa Garden, Suraj Kund, Faridabad", dress: "",
       blurb: "Under the mandap, before the sacred fire, two souls take seven steps into forever." }
   ]
 };

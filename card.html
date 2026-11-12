@@ -11,7 +11,7 @@
   :root{--gold:#d4af37;--gold-l:#f5d77a;--ivory:#fbf3e4}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:#120609;width:1080px;height:1350px;overflow:hidden}
-  #card{position:relative;width:1080px;height:1350px;overflow:hidden;color:var(--ivory);font-family:"Cormorant Garamond",Georgia,serif;text-align:center;display:flex;flex-direction:column;align-items:center;padding:96px 110px 0;
+  #card{position:relative;width:1080px;height:1350px;overflow:hidden;color:var(--ivory);font-family:"Cormorant Garamond",Georgia,serif;text-align:center;display:flex;flex-direction:column;align-items:center;padding:78px 110px 0;
     background:radial-gradient(ellipse at 50% 30%,#5a1a2c 0%,#2a0912 55%,#120408 100%)}
   #card::before{content:"";position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 26%,rgba(245,215,122,.05) 0 3deg,transparent 3deg 9deg);pointer-events:none}
   .frame{position:absolute;inset:34px;border:2px solid rgba(245,215,122,.8);border-radius:40px;box-shadow:inset 0 0 0 12px rgba(18,6,9,.55),inset 0 0 0 13px rgba(212,175,55,.4)}
@@ -27,17 +27,16 @@
   .names{position:relative;font-family:"Great Vibes",cursive;font-size:118px;line-height:1.1;margin-top:6px;background:linear-gradient(100deg,#b8892c,#fff1c1 35%,#d4af37 55%,#f5d77a 80%,#a87b25);-webkit-background-clip:text;background-clip:text;color:transparent}
   .date{position:relative;font-family:Cinzel,serif;font-size:34px;letter-spacing:.14em;margin-top:8px}
   .venue{position:relative;font-family:Cinzel,serif;font-size:22px;letter-spacing:.3em;color:var(--gold);margin-top:10px;text-transform:uppercase}
-  .qr-row{position:relative;display:flex;align-items:center;gap:44px;margin-top:46px;text-align:left}
+  .qr-row{position:relative;display:flex;align-items:center;gap:44px;margin-top:34px;text-align:left}
   .qr{width:270px;height:270px;padding:18px;background:#fbf3e4;border-radius:22px;box-shadow:0 0 0 4px #d4af37,0 0 0 10px rgba(18,6,9,.8),0 0 0 11px rgba(212,175,55,.5),0 20px 50px rgba(0,0,0,.6)}
   .qr svg{width:100%;height:100%}
   .qr-text{max-width:400px}
   .qr-text b{display:block;font-family:"Great Vibes",cursive;font-weight:400;font-size:58px;line-height:1.05;color:var(--gold-l)}
   .qr-text span{display:block;font-size:28px;font-style:italic;color:rgba(251,243,228,.82);margin-top:10px;line-height:1.35}
   .qr-text em{display:block;font-family:Cinzel,serif;font-style:normal;font-size:18px;letter-spacing:.24em;color:var(--gold);margin-top:16px;text-transform:uppercase}
-  .evs{position:relative;display:flex;justify-content:center;gap:0;margin-top:52px;padding-top:26px;border-top:1px solid rgba(212,175,55,.35);width:100%}
-  .ev{flex:1;padding:0 10px;border-left:1px solid rgba(212,175,55,.25)}
-  .ev:first-child{border-left:0}
-  .ev b{display:block;font-family:"Great Vibes",cursive;font-weight:400;font-size:46px;color:var(--gold-l);line-height:1.1}
+  .evs{position:relative;display:flex;flex-wrap:wrap;justify-content:center;row-gap:18px;margin-top:40px;padding-top:22px;border-top:1px solid rgba(212,175,55,.35);width:100%}
+  .ev{flex:0 0 33.33%;padding:0 10px}
+  .ev b{display:block;white-space:nowrap;font-family:"Great Vibes",cursive;font-weight:400;font-size:40px;color:var(--gold-l);line-height:1.1}
   .ev span{display:block;font-family:Cinzel,serif;font-size:17px;letter-spacing:.14em;color:rgba(251,243,228,.8);margin-top:4px}
   .tag{position:absolute;left:0;right:0;bottom:92px;font-family:Cinzel,serif;font-size:20px;letter-spacing:.3em;color:rgba(212,175,55,.85)}
 </style>
@@ -69,7 +68,7 @@
   const url = WEDDING.siteURL.replace(/\/$/, '') + '/';
   window.CARD_URL = url;
   const tz = { timeZone: 'Asia/Kolkata' };
-  document.getElementById('evs').innerHTML = WEDDING.events.map(e => { const d = new Date(e.date); return `<div class="ev"><b>${e.name.replace('The ', '')}</b><span>${d.toLocaleDateString('en-GB', Object.assign({ day: 'numeric', month: 'short' }, tz)).toUpperCase()} · ${d.toLocaleTimeString('en-US', Object.assign({ hour: 'numeric', minute: '2-digit' }, tz))}</span></div>`; }).join('');
+  document.getElementById('evs').innerHTML = WEDDING.events.map(e => `<div class="ev"><b>${e.name.replace('The ', '')}</b><span>${Build.when(e, true).replace(' onwards', '+').toUpperCase()}</span></div>`).join('');
   if (window.qrcode) {
     const q = qrcode(0, 'M'); q.addData(url); q.make();
     const n = q.getModuleCount(); let r = '';

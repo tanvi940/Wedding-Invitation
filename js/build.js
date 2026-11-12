@@ -7,7 +7,9 @@
   let uid = 0;
   const tz = { timeZone: 'Asia/Kolkata' };
   const fmtDay = iso => new Date(iso).toLocaleDateString('en-GB', Object.assign({ weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }, tz));
-  const fmtTime = iso => new Date(iso).toLocaleTimeString('en-US', Object.assign({ hour: 'numeric', minute: '2-digit' }, tz));
+  const fmtShort = iso => new Date(iso).toLocaleDateString('en-GB', Object.assign({ day: 'numeric', month: 'short' }, tz));
+  // "Sunday, 31 January 2027 · 12:00 PM onwards"  /  short: "31 Jan · 12:00 PM onwards"
+  const when = (e, short) => (short ? fmtShort(e.date) : fmtDay(e.date)) + (e.time ? ' · ' + e.time : '');
 
   /* ---------- royal emblem / monogram ---------- */
   function emblem() {
@@ -143,12 +145,13 @@ ${garland}<circle cx="590" cy="134" r="8" fill="#c21f45"/><circle cx="590" cy="1
     mehendi: '<svg class="ec-icon" viewBox="0 0 64 64"><path d="M18 50 L42 14 L50 22 Z"/><path d="M42 14c4-5 12 3 8 8"/><path d="M12 56c5-2 8-7 5-12"/><path d="M28 40c3 1 5 3 5 6M33 32c3 1 5 3 5 6"/></svg>',
     sangeet: '<svg class="ec-icon" viewBox="0 0 64 64"><ellipse cx="20" cy="32" rx="8" ry="15"/><ellipse cx="44" cy="32" rx="8" ry="15"/><path d="M20 17h24M20 47h24"/><path d="M24 17 L30 47 L36 17 L42 47"/></svg>',
     wedding: '<svg class="ec-icon" viewBox="0 0 64 64"><path d="M12 40h40c-2 9-10 14-20 14s-18-5-20-14z"/><path d="M32 35c-7-7-5-15 0-25 5 10 7 18 0 25z"/><path d="M32 30c-2-2-1.5-5 0-8 1.5 3 2 6 0 8z"/></svg>',
+    ring: '<svg class="ec-icon" viewBox="0 0 64 64"><circle cx="32" cy="40" r="15"/><circle cx="32" cy="40" r="11"/><path d="M25 20 L32 13 L39 20 L32 27 Z"/><path d="M25 20H39"/><path d="M14 14l3 3M50 14l-3 3"/></svg>',
     reception: '<svg class="ec-icon" viewBox="0 0 64 64"><path d="M14 10h14l-2 18a5 5 0 0 1-10 0z"/><path d="M21 33v18M15 51h12"/><path d="M36 10h14l-2 18a5 5 0 0 1-10 0z"/><path d="M43 33v18M37 51h12"/><path d="M30 6l2-4 2 4M24 18h2M40 18h2"/></svg>'
   };
   function eventCard(e) {
     return `<svg class="card-border" aria-hidden="true"><rect class="o" pathLength="1"/><rect class="i" pathLength="1"/></svg><div class="card-glow"></div>
-${ICON[e.key] || ''}<p class="ec-tag">${e.tag}</p><h3 class="ec-title">${e.name}</h3><div class="ec-orn"></div>
-<dl class="ec-meta"><div><dt>When</dt><dd>${fmtDay(e.date)} · ${fmtTime(e.date)}</dd></div><div><dt>Where</dt><dd>${e.venue}</dd></div><div><dt>Attire</dt><dd>${e.dress}</dd></div></dl>
+${ICON[e.icon || e.key] || ''}<p class="ec-tag">${e.tag}</p><h3 class="ec-title">${e.name}</h3><div class="ec-orn"></div>
+<dl class="ec-meta"><div><dt>When</dt><dd>${when(e)}</dd></div><div><dt>Where</dt><dd>${e.venue}</dd></div>${e.dress ? `<div><dt>Attire</dt><dd>${e.dress}</dd></div>` : ''}</dl>
 <p class="ec-blurb">${e.blurb}</p><button class="btn-ghost" type="button" data-ics="${e.key}">Add to calendar</button>`;
   }
 
@@ -224,7 +227,18 @@ ${flowers}
     document.title = `${W.bride} & ${W.groom} · A Royal Wedding`;
     const set = (sel, html) => { const el = $(sel); if (el) el.innerHTML = html; };
     const swap = (sel, html) => { const el = $(sel); if (el) el.outerHTML = html; };
+    // sections without content are removed (and their menu links)
+    [['story', W.story], ['gallery', W.gallery]].forEach(([id, list]) => {
+      if (list && list.length) return;
+      const sec = document.getElementById(id); if (sec) sec.remove();
+      $$(`.menu a[href="#${id}"]`).forEach(a => a.closest('li').remove());
+    });
+    $$('.menu li a span').forEach((s, i) => { s.textContent = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'][i] || ''; });
     $$('[data-emblem]').forEach(el => { el.innerHTML = emblem(); });
+    // diya field (Lagan Sagai)
+    let dh = ''; const nD = MOBILE ? 16 : 30;
+    for (let i = 0; i < nD; i++) { const row = i % 3, s = rand(0.6, 1.15) * (row === 0 ? 1 : row === 1 ? 0.8 : 0.62); dh += `<i class="diya" style="left:${rand(2, 96).toFixed(1)}%;bottom:${(row * 9 + rand(1, 7)).toFixed(1)}%;--s:${s.toFixed(2)};--d:${rand(-2, 0).toFixed(2)}s;z-index:${3 - row}"><b></b></i>`; }
+    set('[data-diyas]', dh);
     set('[data-palace]', palace());
     swap('[data-car]', car());
     set('[data-couple]', couple());
@@ -271,5 +285,5 @@ ${flowers}
     $$('.event-card, .inv-card, .rsvp-card').forEach(el => ro.observe(el));
   }
 
-  window.Build = { build, sizeBorders, fmtDay, emblem };
+  window.Build = { build, sizeBorders, fmtDay, emblem, when };
 })();

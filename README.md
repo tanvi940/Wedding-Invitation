@@ -10,7 +10,7 @@ An animation-rich, cinematic **royal Indian wedding invitation**, delivered in t
 
 Guests receive **the video + the card on WhatsApp — never a text link**. They scan the card's QR to open the full website.
 
-> **Status:** fully built and tested on desktop and phone sizes. All names, dates, venues and photos are **placeholders** waiting for the couple's real details (see "Still to do").
+> **Status:** fully built and tested on desktop and phone sizes. The couple's real details from the client's checklist are applied (**Riya & Sagar**, 5 ceremonies, Faridabad). Photos, story, wedding start time and hosting are still pending (see "Still to do").
 
 ---
 
@@ -129,9 +129,31 @@ Sound cues are in `FILM.cues`.
 
 ---
 
+## Details supplied by the client (from the filled checklist)
+
+| Item | Value |
+|---|---|
+| Couple | Riya & Sagar. Initials R & S (derived). |
+| Bride's parents | Rajendra & Sunita (surname not given) |
+| Groom's parents | Kaushal Verma & Pooja Verma |
+| Haldi | 31 Jan 2027, 12:00 PM onwards, at the family residence |
+| Mehendi & Sangeet (combined) | 31 Jan 2027, 7:00 PM onwards, at residence |
+| Chaak Bhaat | 1 Feb 2027, time not given, at residence |
+| Lagan Sagai | 2 Feb 2027, 5:00 PM onwards. **Venue not given; assumed Khalsa Garden.** |
+| Wedding | 2 Feb 2027, **time not given**, Khalsa Garden, Suraj Kund, Faridabad |
+
+Left blank by the client: initials, family line, blessing line, hashtag, dress codes, descriptions (written by us), story, photos, colours, language, music, website address.
+
+Each event in `config.js` has:
+- `time`: display text; empty means date only, and the calendar entry becomes all-day.
+- `scene`: which animated scene shows the card. Haldi uses the marigold scene; Mehendi & Sangeet the stage lights; Chaak Bhaat the henna mandala; Lagan Sagai the diya field (`#lagan`, new); Wedding the curtains and mandap.
+
+The countdown targets Lagan Sagai (2 Feb, 5 PM) until the wedding time is known.
+
 ## Decisions already made by the client (do not undo)
 
-- **Reception was removed.** There are 4 ceremonies: Haldi, Mehendi, Sangeet, Wedding.
+- **Reception was removed.** The ceremonies are the five listed above.
+- **Our Story and Gallery sections are hidden** while `story`/`gallery` are empty in config (the sections and their menu links are removed at build time). Do **not** invent story text. Fill the arrays when the client sends real moments and photos.
 - **The RSVP section ("Will You Join Us?") was removed** entirely. `scenes.js` `rsvp()` safely no-ops; leftover RSVP CSS is harmless.
 - **No personalisation and no guest list.** One common video and one common card for everyone (an earlier per-guest `?to=Name` version was intentionally removed).
 - **Delivered on WhatsApp as a video plus a QR card, not as a link.**
@@ -140,11 +162,12 @@ Sound cues are in `FILM.cues`.
 
 ## Still to do (waiting on the client)
 
-1. **Real details:** the client is filling in `Wedding-Details-Needed-v2.docx`.
-   - Names, initials and family line
-   - Ceremony dates, times, venues and dress codes
-   - Story moments, photos and gallery captions
-   - Colour theme, language, music feel, and the greeting text
+1. **Open questions for the client:**
+   - Wedding (pheras) start time, and the Chaak Bhaat time
+   - Lagan Sagai venue: confirm Khalsa Garden
+   - Bride's family surname, for the family blessing line
+   - Couple photo, story moments and photos, gallery photos (Story and Gallery are hidden until then)
+   - Optional: dress codes, hashtag, colour theme, Hindi names, music feel
 2. **Hosting:** deploy the folder as a static site (Netlify, Vercel or GitHub Pages all work; no build needed). Then set `siteURL` in `js/config.js` and re-run `tools/make_invite.py` so the QR works. **The QR currently points to `https://your-wedding-site.example` (placeholder).**
 3. **Optional, not started:**
    - Add a "long-press the card → Scan QR" hint, because guests view the card on the same phone they would scan with.

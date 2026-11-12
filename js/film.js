@@ -18,7 +18,7 @@
     Build.build();
     // ceremony list on the closing card
     const tz = { timeZone: 'Asia/Kolkata' };
-    $('[data-fe-events]').innerHTML = W.events.map(e => `<div class="fe-ev"><b>${e.name.replace('The ', '')}</b><span>${new Date(e.date).toLocaleDateString('en-GB', Object.assign({ day: 'numeric', month: 'short' }, tz))} · ${new Date(e.date).toLocaleTimeString('en-US', Object.assign({ hour: 'numeric', minute: '2-digit' }, tz))}</span></div>`).join('');
+    $('[data-fe-events]').innerHTML = W.events.map(e => `<div class="fe-ev"><b>${e.name.replace('The ', '')}</b><span>${Build.when(e, true).replace(' onwards', '+')}</span></div>`).join('');
     $$('.lantern').forEach(l => l.classList.add('lit'));
 
     /* ---------- canvases ---------- */

@@ -196,6 +196,7 @@ window.Scenes = (function () {
      ========================================================= */
   function story() {
     const tlEl = $('.timeline');
+    if (!tlEl) return;
     if (!RM) {
       gsap.to('.tl-fill', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: tlEl, start: 'top 55%', end: 'bottom 55%', scrub: true } });
       gsap.to('.tl-head', { y: () => $('.tl-track').offsetHeight, ease: 'none', scrollTrigger: { trigger: tlEl, start: 'top 55%', end: 'bottom 55%', scrub: true, invalidateOnRefresh: true } });
@@ -221,7 +222,7 @@ window.Scenes = (function () {
      GALLERY — pinned horizontal film strip with 3D frames
      ========================================================= */
   function gallery() {
-    if (RM) return;
+    if (RM || !$('#gallery')) return;
     const sec = $('#gallery'), track = $('.gal-track');
     const dist = () => Math.max(0, track.scrollWidth - vw());
     const tw = gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true } });
@@ -277,6 +278,17 @@ window.Scenes = (function () {
     gsap.from('.spotlight', { opacity: 0, scale: 0.3, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: sang, start: 'top 50%' } });
     gsap.from('#sangeet .ev-inner', { scale: 0.6, opacity: 0, filter: 'blur(20px)', duration: 1.4, ease: 'expo.out', clearProps: 'filter', scrollTrigger: { trigger: sang, start: 'top 50%' } });
     gsap.from('#sangeet .ec-title', { opacity: 0, duration: 0.06, repeat: 5, yoyo: true, ease: 'steps(1)', scrollTrigger: { trigger: sang, start: 'top 40%' } });
+
+    /* LAGAN SAGAI — a field of diyas lights up one by one */
+    const lag = $('#lagan');
+    if (lag) {
+      const flames = $$('#lagan .diya b');
+      gsap.set(flames, { scale: 0, opacity: 0 });
+      gsap.to(flames, { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(3)', stagger: { each: 0.06, from: 'center' }, scrollTrigger: { trigger: lag, start: 'top 60%' } });
+      gsap.fromTo('.diya-glow', { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 2.2, ease: 'power2.out', scrollTrigger: { trigger: lag, start: 'top 55%' } });
+      gsap.from('#lagan .ev-inner', { y: 90, opacity: 0, rotationX: 25, transformPerspective: 900, duration: 1.4, ease: 'power3.out', scrollTrigger: { trigger: lag, start: 'top 50%' } });
+      gsap.to('.diya-field', { yPercent: -8, ease: 'none', scrollTrigger: { trigger: lag, start: 'top bottom', end: 'bottom top', scrub: true } });
+    }
 
     /* WEDDING — royal velvet curtains part to reveal the mandap */
     const wtl = gsap.timeline({ scrollTrigger: { trigger: '#wedding', start: 'top top', end: () => '+=' + vh() * 1.7, pin: true, scrub: 1, onEnter: () => Audio().whoosh && RoyalAudio.whoosh(1.8) } });
@@ -448,7 +460,13 @@ window.Scenes = (function () {
       const ev = W.events.find(x => x.key === b.dataset.ics); if (!ev) return;
       const start = new Date(ev.date), end = new Date(start.getTime() + (ev.hours || 4) * 36e5);
       const f = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-      const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Royal Wedding//EN', 'BEGIN:VEVENT', `UID:${ev.key}-${f(start)}@royal-wedding`, `DTSTAMP:${f(new Date())}`, `DTSTART:${f(start)}`, `DTEND:${f(end)}`, `SUMMARY:${ev.name} · ${W.bride} & ${W.groom}`, `LOCATION:${ev.venue}\\, ${W.city}`, `DESCRIPTION:Attire: ${ev.dress}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+      const ymd = d => d.toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' }).replace(/-/g, '');
+      const day = ymd(start), next = ymd(new Date(start.getTime() + 864e5));
+      // no fixed time yet → all-day event
+      const when = ev.time ? [`DTSTART:${f(start)}`, `DTEND:${f(end)}`] : [`DTSTART;VALUE=DATE:${day}`, `DTEND;VALUE=DATE:${next}`];
+      const loc = ev.venue.includes(W.city) ? ev.venue : `${ev.venue}, ${W.city}`;
+      const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Royal Wedding//EN', 'BEGIN:VEVENT', `UID:${ev.key}-${day}@royal-wedding`, `DTSTAMP:${f(new Date())}`, ...when,
+        `SUMMARY:${ev.name} · ${W.bride} & ${W.groom}`, `LOCATION:${loc.replace(/,/g, '\\,')}`, `DESCRIPTION:${(ev.time || 'Time to be announced') + (ev.dress ? ' · Attire: ' + ev.dress : '')}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
       const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })); a.download = `${ev.key}-${W.bride}-${W.groom}.ics`.toLowerCase();
       document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1500);
       const t = b.textContent; b.textContent = 'Added ✦'; setTimeout(() => { b.textContent = t; }, 2200);
