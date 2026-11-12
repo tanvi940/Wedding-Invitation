@@ -34,7 +34,7 @@ window.WEDDING = {
   musicFile: "music/jashn-e-bahaara-flute.mp3",   // Jashn-e-Bahaara (instrumental flute), supplied by the client
   musicStart: 0,                                   // seconds into the song where the video's music begins
   // Where the website will live once hosted — the QR card points here
-  siteURL: "https://your-wedding-site.example",
+  siteURL: "https://riya-weds-sagar.onrender.com",
 
   // No real photos are used anywhere: the couple appears as animated illustrations
   // (car reveal). The story/gallery sections were removed.
