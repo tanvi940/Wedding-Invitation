@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Invitation card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#d4af37;--gold-l:#f5d77a;--ivory:#fbf3e4}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#120609;width:1080px;height:1350px;overflow:hidden}
+  #card{position:relative;width:1080px;height:1350px;overflow:hidden;color:var(--ivory);font-family:"Cormorant Garamond",Georgia,serif;text-align:center;display:flex;flex-direction:column;align-items:center;padding:96px 110px 0;
+    background:radial-gradient(ellipse at 50% 30%,#5a1a2c 0%,#2a0912 55%,#120408 100%)}
+  #card::before{content:"";position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 26%,rgba(245,215,122,.05) 0 3deg,transparent 3deg 9deg);pointer-events:none}
+  .frame{position:absolute;inset:34px;border:2px solid rgba(245,215,122,.8);border-radius:40px;box-shadow:inset 0 0 0 12px rgba(18,6,9,.55),inset 0 0 0 13px rgba(212,175,55,.4)}
+  .frame::before{content:"";position:absolute;inset:22px;border:1px solid rgba(212,175,55,.35);border-radius:26px}
+  .corner{position:absolute;width:90px;height:90px;border:3px solid var(--gold);opacity:.8}
+  .c1{top:70px;left:70px;border-right:0;border-bottom:0;border-top-left-radius:30px}.c2{top:70px;right:70px;border-left:0;border-bottom:0;border-top-right-radius:30px}
+  .c3{bottom:70px;left:70px;border-right:0;border-top:0;border-bottom-left-radius:30px}.c4{bottom:70px;right:70px;border-left:0;border-top:0;border-bottom-right-radius:30px}
+  .mono{position:relative;width:170px;height:170px;filter:drop-shadow(0 0 18px rgba(245,215,122,.45))}
+  .mono svg{width:100%;height:100%}
+  .kick{position:relative;font-family:Cinzel,serif;font-size:22px;letter-spacing:.32em;color:var(--gold);margin-top:22px}
+  .dear{position:relative;font-family:"Great Vibes",cursive;font-size:84px;line-height:1.1;color:var(--gold-l);margin-top:18px;text-shadow:0 0 30px rgba(245,215,122,.3)}
+  .line{position:relative;font-style:italic;font-size:32px;color:rgba(251,243,228,.8);margin-top:8px}
+  .names{position:relative;font-family:"Great Vibes",cursive;font-size:118px;line-height:1.1;margin-top:6px;background:linear-gradient(100deg,#b8892c,#fff1c1 35%,#d4af37 55%,#f5d77a 80%,#a87b25);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .date{position:relative;font-family:Cinzel,serif;font-size:34px;letter-spacing:.14em;margin-top:8px}
+  .venue{position:relative;font-family:Cinzel,serif;font-size:22px;letter-spacing:.3em;color:var(--gold);margin-top:10px;text-transform:uppercase}
+  .qr-row{position:relative;display:flex;align-items:center;gap:44px;margin-top:46px;text-align:left}
+  .qr{width:270px;height:270px;padding:18px;background:#fbf3e4;border-radius:22px;box-shadow:0 0 0 4px #d4af37,0 0 0 10px rgba(18,6,9,.8),0 0 0 11px rgba(212,175,55,.5),0 20px 50px rgba(0,0,0,.6)}
+  .qr svg{width:100%;height:100%}
+  .qr-text{max-width:400px}
+  .qr-text b{display:block;font-family:"Great Vibes",cursive;font-weight:400;font-size:58px;line-height:1.05;color:var(--gold-l)}
+  .qr-text span{display:block;font-size:28px;font-style:italic;color:rgba(251,243,228,.82);margin-top:10px;line-height:1.35}
+  .qr-text em{display:block;font-family:Cinzel,serif;font-style:normal;font-size:18px;letter-spacing:.24em;color:var(--gold);margin-top:16px;text-transform:uppercase}
+  .evs{position:relative;display:flex;justify-content:center;gap:0;margin-top:52px;padding-top:26px;border-top:1px solid rgba(212,175,55,.35);width:100%}
+  .ev{flex:1;padding:0 10px;border-left:1px solid rgba(212,175,55,.25)}
+  .ev:first-child{border-left:0}
+  .ev b{display:block;font-family:"Great Vibes",cursive;font-weight:400;font-size:46px;color:var(--gold-l);line-height:1.1}
+  .ev span{display:block;font-family:Cinzel,serif;font-size:17px;letter-spacing:.14em;color:rgba(251,243,228,.8);margin-top:4px}
+  .tag{position:absolute;left:0;right:0;bottom:92px;font-family:Cinzel,serif;font-size:20px;letter-spacing:.3em;color:rgba(212,175,55,.85)}
+</style>
+</head>
+<body>
+<div id="card">
+  <div class="frame"></div><i class="corner c1"></i><i class="corner c2"></i><i class="corner c3"></i><i class="corner c4"></i>
+  <div class="mono" data-emblem></div>
+  <p class="kick">॥ SHREE GANESHAYA NAMAH ॥</p>
+  <p class="dear">Dear Family &amp; Friends,</p>
+  <p class="line">you are cordially invited to the wedding of</p>
+  <p class="names"><span data-w="bride"></span> &amp; <span data-w="groom"></span></p>
+  <p class="date" data-w="dateLong"></p>
+  <p class="venue" data-w="venue"></p>
+  <div class="qr-row">
+    <div class="qr" id="qr"></div>
+    <div class="qr-text"><b>Scan to enter the palace</b><span>Open your camera and point it here — your royal invitation awaits.</span><em>Sound on for the full experience</em></div>
+  </div>
+  <div class="evs" id="evs"></div>
+  <p class="tag" data-w="hashtag"></p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/build.js"></script>
+<script>
+  Build.build();
+  const url = WEDDING.siteURL.replace(/\/$/, '') + '/';
+  window.CARD_URL = url;
+  const tz = { timeZone: 'Asia/Kolkata' };
+  document.getElementById('evs').innerHTML = WEDDING.events.map(e => { const d = new Date(e.date); return `<div class="ev"><b>${e.name.replace('The ', '')}</b><span>${d.toLocaleDateString('en-GB', Object.assign({ day: 'numeric', month: 'short' }, tz)).toUpperCase()} · ${d.toLocaleTimeString('en-US', Object.assign({ hour: 'numeric', minute: '2-digit' }, tz))}</span></div>`; }).join('');
+  if (window.qrcode) {
+    const q = qrcode(0, 'M'); q.addData(url); q.make();
+    const n = q.getModuleCount(); let r = '';
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (q.isDark(y, x)) r += `<rect x="${x}" y="${y}" width="1.02" height="1.02"/>`;
+    document.getElementById('qr').innerHTML = `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges"><g fill="#2a0912">${r}</g></svg>`;
+  }
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { window.CARD_READY = true; });
+</script>
+</body>
+</html>

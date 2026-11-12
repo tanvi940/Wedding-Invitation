@@ -1,0 +1,11 @@
+# Word lock files and the outdated checklist (v2 is current)
+~$*
+Wedding-Details-Needed.docx
+
+# temporary render artefacts
+exports/_soundtrack.wav
+exports/_cache/
+__pycache__/
+node_modules/
+.DS_Store
+Thumbs.db

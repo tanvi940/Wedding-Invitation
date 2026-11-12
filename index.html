@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ananya &amp; Aarav · A Royal Wedding</title>
+<meta name="description" content="A royal wedding invitation — 2nd February 2027.">
+<meta name="theme-color" content="#070304">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>if('scrollRestoration' in history)history.scrollRestoration='manual';document.documentElement.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('rm');</script>
+</head>
+<body class="is-locked">
+
+<!-- shared SVG paint servers -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gold-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff2bf"/><stop offset=".3" stop-color="#e9c75f"/>
+      <stop offset=".6" stop-color="#a87b25"/><stop offset="1" stop-color="#f5d77a"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="cursor" aria-hidden="true"><div class="cursor-ring"></div><div class="cursor-dot"></div></div>
+<canvas id="fx-global" aria-hidden="true"></canvas>
+
+<!-- ============ 1. GRAND INTRO ============ -->
+<section id="intro" aria-label="Opening invitation">
+  <div class="intro-stage">
+    <div class="intro-floor" aria-hidden="true"></div>
+    <div class="light-spill" aria-hidden="true"></div>
+    <div class="doors" aria-hidden="true">
+      <div class="door-frame"></div>
+      <div class="door-inner-light"></div>
+      <div class="door door-left"><div class="door-medallion"></div><div class="door-panel"></div><div class="door-ring"></div></div>
+      <div class="door door-right"><div class="door-medallion"></div><div class="door-panel"></div><div class="door-ring"></div></div>
+      <div class="door-gap"></div>
+    </div>
+    <div class="emblem-wrap" data-emblem="intro"></div>
+    <div class="intro-copy">
+      <p class="intro-kicker">॥ Shree Ganeshaya Namah ॥</p>
+      <h1 class="intro-title">You are invited</h1>
+      <p class="intro-sub">to celebrate the royal union of
+        <span class="intro-names"><span data-w="bride"></span> &amp; <span data-w="groom"></span></span>
+      </p>
+      <div class="intro-actions">
+        <button class="btn-royal magnetic" id="open-invite" type="button"><span>Open Invitation</span></button>
+        <button class="sound-pref" id="sound-pref" type="button" aria-pressed="true">♪ Sound on</button>
+      </div>
+    </div>
+  </div>
+  <canvas id="intro-canvas" aria-hidden="true"></canvas>
+  <div class="intro-flash" aria-hidden="true"></div>
+  <button class="skip-intro" id="skip-intro" type="button">Skip intro</button>
+</section>
+
+<!-- ============ NAV + MUSIC ============ -->
+<header class="nav" id="nav">
+  <a class="nav-mono" href="#arrival" data-link aria-label="Back to the beginning" data-emblem="nav"></a>
+  <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu">
+    <span class="menu-label">Menu</span><span class="menu-lines"><i></i><i></i></span>
+  </button>
+</header>
+<nav class="menu" id="menu" aria-label="Sections">
+  <ul>
+    <li><a href="#arrival" data-link><span>I</span>The Arrival</a></li>
+    <li><a href="#invitation" data-link><span>II</span>Invitation</a></li>
+    <li><a href="#story" data-link><span>III</span>Our Story</a></li>
+    <li><a href="#gallery" data-link><span>IV</span>Moments</a></li>
+    <li><a href="#events" data-link><span>V</span>Celebrations</a></li>
+    <li><a href="#countdown" data-link><span>VI</span>Countdown</a></li>
+  </ul>
+</nav>
+<button class="music-btn" id="music-btn" type="button" aria-pressed="false" aria-label="Toggle music and sound">
+  <span class="mb-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="mb-label">Sound off</span>
+</button>
+
+<main id="main">
+
+<!-- ============ 2. ROYAL ARRIVAL ============ -->
+<section id="arrival" aria-label="The royal arrival">
+  <div class="camera">
+    <div class="sky"><div class="stars"></div><div class="stars s2"></div><div class="moon"></div></div>
+    <div class="pan" data-palace></div>
+    <div class="ground"><div class="ground-glow"></div></div>
+    <div class="distant-light" aria-hidden="true"></div>
+    <div class="car-wrap" aria-hidden="true">
+      <div class="car-shadow"></div>
+      <div class="beam-ground"></div>
+      <div class="headbeam"></div>
+      <div data-car></div>
+    </div>
+    <canvas id="arrival-canvas" aria-hidden="true"></canvas>
+    <div class="lanterns" aria-hidden="true"></div>
+    <div class="fg-arch" aria-hidden="true"><div class="toran"></div></div>
+    <div class="pillar pillar-l" aria-hidden="true"></div>
+    <div class="pillar pillar-r" aria-hidden="true"></div>
+  </div>
+  <p class="arrival-hint">Scroll to welcome the couple<span></span></p>
+  <div class="iris-flash" aria-hidden="true"></div>
+  <div class="couple-reveal">
+    <div class="couple-halo" aria-hidden="true"></div>
+    <figure class="couple-frame">
+      <div class="couple-art" data-couple></div>
+      <img src="images/couple.jpg" alt="The bride and groom" onerror="this.remove()">
+    </figure>
+    <h2 class="couple-names">
+      <span class="cn cn-bride gold-text" data-w="bride"></span>
+      <span class="cn-amp">&amp;</span>
+      <span class="cn cn-groom gold-text" data-w="groom"></span>
+    </h2>
+    <p class="couple-line">request the honour of your presence</p>
+    <p class="couple-date" data-w="date"></p>
+  </div>
+</section>
+
+<!-- ============ ROYAL ENVELOPE ============ -->
+<section id="invitation" class="invitation" aria-label="The invitation">
+  <div class="chandelier-hang ch-inv" aria-hidden="true"><div class="ch-swing" data-chandelier></div></div>
+  <div class="inv-stage">
+    <p class="inv-intro">A letter sealed with love<span>scroll to break the seal</span></p>
+    <div class="envelope">
+      <div class="env-back"></div>
+      <div class="inv-card">
+        <svg class="card-border card-border-inv" aria-hidden="true"><rect class="o" pathLength="1"/><rect class="i" pathLength="1"/></svg>
+        <div class="ic-mono" data-emblem="card"></div>
+        <p class="ic-small ic-stagger" data-w="families"></p>
+        <h3 class="ic-names"><span data-w="bride"></span><em>&amp;</em><span data-w="groom"></span></h3>
+        <p class="ic-small ic-stagger">request the pleasure of your company as they begin their forever</p>
+        <p class="ic-date ic-stagger" data-w="dateLong"></p>
+        <p class="ic-venue ic-stagger" data-w="venue"></p>
+      </div>
+      <div class="env-front"></div>
+      <div class="env-flap"><div class="flap-face"></div></div>
+      <div class="wax-seal" aria-hidden="true">
+        <div class="seal-glow"></div>
+        <div class="seal-half seal-l" data-emblem="seal"></div>
+        <div class="seal-half seal-r" data-emblem="seal"></div>
+      </div>
+    </div>
+  </div>
+  <div class="sheer sheer-l" aria-hidden="true"></div>
+  <div class="sheer sheer-r" aria-hidden="true"></div>
+</section>
+
+<!-- ============ OUR STORY ============ -->
+<section id="story" class="story" aria-label="Our story">
+  <div class="peacock pk-l" aria-hidden="true" data-peacock></div>
+  <div class="peacock pk-r" aria-hidden="true" data-peacock></div>
+  <header class="sec-head">
+    <p class="eyebrow">Chapter I</p>
+    <h2 class="sec-title" data-split="blur">Our Story</h2>
+    <p class="sec-sub">Every royal tale begins with a single glance. Here is ours.</p>
+  </header>
+  <div class="timeline">
+    <div class="tl-track" aria-hidden="true"><div class="tl-fill"></div><div class="tl-head"></div></div>
+    <div data-story></div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery" class="gallery" aria-label="Gallery">
+  <header class="gal-head">
+    <p class="eyebrow">Chapter II</p>
+    <h2 class="sec-title" data-split="wave">Moments in Gold</h2>
+  </header>
+  <div class="gal-track" data-gallery></div>
+  <div class="gal-progress" aria-hidden="true"><span></span></div>
+</section>
+
+<!-- ============ EVENTS ============ -->
+<section id="events" class="events" aria-label="Wedding celebrations">
+  <header class="sec-head events-head">
+    <p class="eyebrow">Chapter III</p>
+    <h2 class="sec-title" data-split="flip">The Celebrations</h2>
+    <p class="sec-sub">Four celebrations, four worlds — each one a chapter of our forever.</p>
+  </header>
+
+  <section class="ev-scene ev-haldi" id="haldi" aria-label="Haldi">
+    <div class="floral-wipe" aria-hidden="true" data-marigolds></div>
+    <canvas class="ev-canvas" id="haldi-canvas" aria-hidden="true"></canvas>
+    <div class="ev-inner"><article class="event-card" data-event="haldi"></article></div>
+  </section>
+
+  <section class="ev-scene ev-mehendi" id="mehendi" aria-label="Mehendi">
+    <div class="mandala-wrap" aria-hidden="true" data-mandala></div>
+    <div class="ev-inner"><article class="event-card" data-event="mehendi"></article></div>
+  </section>
+
+  <section class="ev-scene ev-sangeet" id="sangeet" aria-label="Sangeet">
+    <div class="stage-lights" aria-hidden="true">
+      <span class="beam b1"></span><span class="beam b2"></span><span class="beam b3"></span><span class="beam b4"></span>
+    </div>
+    <div class="spotlight" aria-hidden="true"></div>
+    <div class="sparkles" aria-hidden="true"></div>
+    <div class="waveform" aria-hidden="true"></div>
+    <div class="ev-inner"><article class="event-card" data-event="sangeet"></article></div>
+  </section>
+
+  <section class="ev-scene ev-wedding" id="wedding" aria-label="The wedding ceremony">
+    <div class="wed-glow" aria-hidden="true"></div>
+    <div class="mandap-wrap" aria-hidden="true" data-mandap></div>
+    <div class="ev-inner"><article class="event-card" data-event="wedding"></article></div>
+    <div class="curtain curtain-l" aria-hidden="true"></div>
+    <div class="curtain curtain-r" aria-hidden="true"></div>
+    <div class="valance" aria-hidden="true"></div>
+  </section></section>
+
+<!-- ============ RINGS ============ -->
+<section id="rings" class="rings" aria-label="Two rings">
+  <div class="rings-stage" aria-hidden="true">
+    <div class="rings-flash"></div>
+    <div class="ring-wrap rw-l"><div class="ring"></div></div>
+    <div class="ring-wrap rw-r"><div class="ring"></div><div class="gem"></div></div>
+    <svg class="infinity" viewBox="-220 -110 440 220"><path class="inf-glow"/><path class="inf-path" pathLength="1"/></svg>
+  </div>
+  <div class="rings-copy">
+    <p class="eyebrow">Chapter IV</p>
+    <h2 class="sec-title">Two Rings, One Forever</h2>
+    <p class="sec-sub">Two circles of gold, joined without end.</p>
+  </div>
+</section>
+
+<!-- ============ COUNTDOWN ============ -->
+<section id="countdown" class="countdown" aria-label="Countdown to the wedding">
+  <canvas id="fw-canvas" aria-hidden="true"></canvas>
+  <div class="cd-inner">
+    <p class="eyebrow">Save the date</p>
+    <h2 class="cd-date" aria-label="2 February 2027"><span class="cd-part">02</span><span class="dot">✦</span><span class="cd-part">02</span><span class="dot">✦</span><span class="cd-part">2027</span></h2>
+    <p class="sec-sub" data-w="venue"></p>
+    <div class="cd-grid" role="timer" aria-live="off">
+      <div class="cd-unit"><div class="cd-num" data-u="d"><span>00</span></div><p>Days</p></div>
+      <div class="cd-unit"><div class="cd-num" data-u="h"><span>00</span></div><p>Hours</p></div>
+      <div class="cd-unit"><div class="cd-num" data-u="m"><span>00</span></div><p>Minutes</p></div>
+      <div class="cd-unit"><div class="cd-num" data-u="s"><span>00</span></div><p>Seconds</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINALE ============ -->
+<section id="finale" class="finale" aria-label="Finale">
+  <canvas id="finale-fw" aria-hidden="true"></canvas>
+  <canvas id="finale-petals" aria-hidden="true"></canvas>
+  <canvas id="finale-canvas" aria-hidden="true"></canvas>
+  <div class="finale-copy">
+    <p class="eyebrow">And so, forever begins</p>
+    <h2 class="finale-names gold-text"><span data-w="bride"></span> &amp; <span data-w="groom"></span></h2>
+    <p class="finale-date" data-w="dateLong"></p>
+    <p class="finale-line">We can't wait to celebrate with you at the palace.</p>
+    <p class="finale-tag" data-w="hashtag"></p>
+    <button class="btn-royal magnetic" id="replay" type="button"><span>Relive the invitation</span></button>
+  </div>
+  <footer class="footer">
+    <div class="foot-mono" data-emblem="foot"></div>
+    <p>Made with love for <span data-w="bride"></span> &amp; <span data-w="groom"></span> · <span data-w="city"></span></p>
+  </footer>
+</section>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/build.js"></script>
+<script src="js/intro.js"></script>
+<script src="js/scenes.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
