@@ -160,6 +160,7 @@ The countdown targets the wedding (2 Feb, 8 PM).
 - **Delivered on WhatsApp as a video plus a QR card, not as a link.**
 - **Must be phone-friendly.** Mobile tweaks live in the `@media (max-width:768px)` block; `FX.MOBILE` reduces particles.
 - **Sound must never autoplay.** It is opt-in only.
+- **No bells or chimes ("ting ting") anywhere** (website or video). `RoyalAudio.allowBells = false` in `audio.js` silences them all; the video's `FILM.cues` also has empty `bells`/`chime`.
 
 ## Still to do (waiting on the client)
 

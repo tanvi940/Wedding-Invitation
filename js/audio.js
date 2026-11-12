@@ -120,8 +120,10 @@
   }
 
   /* ---------- bells ---------- */
+  // Client asked for no bells / "ting ting" anywhere. Set true to bring every bell & chime back.
+  A.allowBells = false;
   A.bell = function (freq, t, vol) {
-    if (!A.ctx || !A.enabled) return;
+    if (!A.allowBells || !A.ctx || !A.enabled) return;
     t = t == null ? A.ctx.currentTime : t; vol = vol == null ? 0.18 : vol;
     [[1, 1], [2.01, 0.6], [2.76, 0.42], [4.07, 0.28], [5.43, 0.16], [0.5, 0.35]].forEach(([m, a]) => {
       const o = A.ctx.createOscillator(), g = A.ctx.createGain(), d = 2.8 / (m * 0.6 + 0.5);
