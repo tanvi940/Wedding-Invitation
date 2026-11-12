@@ -6,9 +6,13 @@
   const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
   let uid = 0;
   const tz = { timeZone: 'Asia/Kolkata' };
-  const fmtDay = iso => new Date(iso).toLocaleDateString('en-GB', Object.assign({ weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }, tz));
-  const fmtShort = iso => new Date(iso).toLocaleDateString('en-GB', Object.assign({ day: 'numeric', month: 'short' }, tz));
-  // "Sunday, 31 January 2027 · 12:00 PM onwards"  /  short: "31 Jan · 12:00 PM onwards"
+  // 1 → 1st, 2 → 2nd, 3 → 3rd, 11 → 11th, 31 → 31st
+  const ord = n => { const s = ['th', 'st', 'nd', 'rd'], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); };
+  const withOrd = (iso, opts) => new Intl.DateTimeFormat('en-GB', Object.assign(opts, tz)).formatToParts(new Date(iso))
+    .map(p => p.type === 'day' ? ord(+p.value) : p.value).join('');
+  const fmtDay = iso => withOrd(iso, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const fmtShort = iso => withOrd(iso, { day: 'numeric', month: 'short' });
+  // "Sunday, 31st January 2027 · 12:00 PM onwards"  /  short: "31st Jan · 12:00 PM onwards"
   const when = (e, short) => (short ? fmtShort(e.date) : fmtDay(e.date)) + (e.time ? ' · ' + e.time : '');
 
   /* ---------- royal emblem / monogram ---------- */

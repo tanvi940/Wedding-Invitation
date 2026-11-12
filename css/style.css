@@ -186,9 +186,10 @@ a{color:inherit}
 .pillar::after{bottom:0;height:7vh}
 .pillar-l{left:0}
 .pillar-r{right:0}
-.arrival-hint{position:absolute;left:0;right:0;top:24vh;z-index:7;text-align:center;font-family:var(--display);font-size:.7rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-l);opacity:0;text-shadow:0 0 12px rgba(0,0,0,.9)}
+/* bigger, high-contrast pill so it reads over the bright palace */
+.arrival-hint{position:absolute;left:0;right:0;top:22vh;z-index:7;width:fit-content;max-width:calc(100% - 32px);margin:0 auto;padding:12px 26px 10px;text-align:center;font-family:var(--display);font-weight:700;font-size:clamp(.82rem,1.6vw,1.05rem);line-height:1.5;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-xl);background:rgba(12,4,8,.78);border:1px solid rgba(245,215,122,.6);border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.6),0 0 24px rgba(212,175,55,.25);opacity:0;text-shadow:0 1px 2px #000}
 .arrival-hint.gone{opacity:0!important;transition:opacity .5s}
-.arrival-hint span{display:block;width:1px;height:46px;margin:14px auto 0;background:linear-gradient(var(--gold-l),transparent);animation:hint 1.8s var(--ease) infinite}
+.arrival-hint span{display:block;width:2px;height:30px;margin:8px auto 0;background:linear-gradient(var(--gold-l),transparent);animation:hint 1.8s var(--ease) infinite}
 @keyframes hint{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 .iris-flash{position:absolute;inset:0;z-index:19;background:radial-gradient(circle at 50% 55%,#fff8e6,#ffe0a0 55%,#e0a040);opacity:0;pointer-events:none}
 .couple-reveal{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4vh;padding:70px 16px 24px;text-align:center;background:radial-gradient(ellipse at 50% 42%,#4a1426 0%,#1a070d 58%,#070304 100%);overflow:hidden}
@@ -554,7 +555,7 @@ a{color:inherit}
   .music-btn{padding:12px 14px}
   .music-btn .mb-label{display:none}
   .menu-btn .menu-label{display:none}
-  .arrival-hint{top:20vh;padding:0 24px;line-height:1.8}
+  .arrival-hint{top:20vh;padding:10px 18px 8px;font-size:.74rem;letter-spacing:.12em;white-space:nowrap}
   .milestone{grid-template-columns:1fr;gap:26px;padding:6vh 0 6vh 40px}
   .milestone.right .ms-photo{order:0}
   .milestone.right .ms-text{text-align:left;justify-self:start}
