@@ -6,11 +6,17 @@
   const { fit, glow, drawPetal, petal, stepPetal, sample, split, PAL, pick, rand } = FX;
   const W = window.WEDDING;
   const $ = s => document.querySelector(s), $$ = s => Array.from(document.querySelectorAll(s));
-  const DURATION = 35, STEP = 1 / 60;
+  // rituals play from RS for 19.4 s of ritual time at speed RX; the closing card is pushed back by E
+  const RS = 28.8, RX = 1.35, E = 14.8;
+  const DURATION = 35 + E, STEP = 1 / 60;
+  const RIT_STEPS = [0, 4, 6, 11.6, 14, 16.2];
 
   window.FILM = {
     duration: DURATION,
-    cues: { bells: [6.1, 24.7], doors: [9.2], whoosh: [[10.2, 2.4], [21, 1.8]], chime: [23.4, 29.2, 31.5], engine: [15.8, 20.3, 21.3] },
+    cues: {
+      bells: [6.1, 24.7, RS + 16.2 / RX], doors: [9.2], whoosh: [[10.2, 2.4], [21, 1.8], [RS - 0.6, 1.4], [28.4 + E, 1.4]],
+      chime: [23.4, ...RIT_STEPS.slice(1).map(t => +(RS + t / RX).toFixed(2)), 29.2 + E, 31.5 + E], engine: [15.8, 20.3, 21.3]
+    },
     ready: false
   };
 
@@ -62,6 +68,7 @@
     const kick = split($('.intro-kicker')), title = split($('.intro-title'));
 
     /* ---------- master timeline ---------- */
+    const rit = window.Rituals ? Rituals.init({ film: true }) : null;
     const tl = gsap.timeline({ paused: true });
     tl.to(L, { r: Math.min(w, h) * 0.05, a: 1, duration: 1.2, ease: 'power2.out' }, 0)
       .to(L, { a: 0, r: Math.min(w, h) * 0.16, duration: 1.5, ease: 'power2.out' }, 1.2)
@@ -119,10 +126,14 @@
       .fromTo('.cn-amp', { opacity: 0, scale: 0.3, rotation: -30 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, ease: 'back.out(2)' }, 25.4)
       .to('.cn-groom', { clipPath: 'inset(-40% -10% -40% -10%)', duration: 1, ease: 'power1.inOut' }, 25.6)
       .fromTo(['.couple-line', '.couple-date'], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.15 }, 26.4)
-      // closing personal card
-      .to('.film-end', { opacity: 1, duration: 1 }, 28.6)
-      .fromTo('.fe-mono', { scale: 0, rotation: -200, opacity: 0 }, { scale: 1, rotation: 0, opacity: 1, duration: 1.2, ease: 'back.out(1.4)' }, 29)
-      .fromTo('.fe-item', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.32, ease: 'power3.out' }, 29.5)
+      // the couple performs the six rituals
+      .to('#rituals', { opacity: 1, duration: 0.7 }, RS - 0.7);
+    if (rit) tl.add(rit.tl.timeScale(RX).paused(false), RS);
+    tl
+      // closing card
+      .to('.film-end', { opacity: 1, duration: 1 }, 28.6 + E)
+      .fromTo('.fe-mono', { scale: 0, rotation: -200, opacity: 0 }, { scale: 1, rotation: 0, opacity: 1, duration: 1.2, ease: 'back.out(1.4)' }, 29 + E)
+      .fromTo('.fe-item', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.32, ease: 'power3.out' }, 29.5 + E)
       .to({}, { duration: 0.1 }, DURATION - 0.1);
 
     /* ---------- deterministic simulation ---------- */
@@ -168,7 +179,7 @@
         for (let i = dust.length - 1; i >= 0; i--) { const d = dust[i]; d.x += d.vx * k; d.y += d.vy * k; d.r += 0.35 * k; d.life -= STEP * 0.9; if (d.life <= 0) dust.splice(i, 1); }
       }
       // golden sparkles on the closing card
-      if (t >= 28.6) {
+      if (t >= 28.6 + E) {
         if (sparks.length < 70 && Math.random() < 0.5) sparks.push({ x: rand(0, w), y: h + 10, vy: -rand(0.4, 1.2), vx: rand(-0.2, 0.2), r: rand(2, 5), life: 1, dec: rand(0.003, 0.007), ph: rand(0, 6.28) });
         for (let i = sparks.length - 1; i >= 0; i--) { const s = sparks[i]; s.x += s.vx + Math.sin(t * 2 + s.ph) * 0.3; s.y += s.vy; s.life -= s.dec; if (s.life <= 0) sparks.splice(i, 1); }
       }
@@ -198,6 +209,7 @@
       t = Math.max(0, Math.min(DURATION, t));
       while (simT + 1e-6 < t) { simT = Math.round((simT + STEP) * 60) / 60; tl.seek(simT, false); step(simT); }
       tl.seek(t, false);
+      if (rit) rit.update();
       document.getAnimations().forEach(a => { a.pause(); a.currentTime = t * 1000; });
       draw(t);
       return t;

@@ -148,7 +148,9 @@ ${strings}${pillars}
     el.halo.style.opacity = S.halo;
   }
 
-  function init() {
+  // opts.film = true → no scroll/pin/rain/chimes; returns { tl, update } for the video timeline
+  function init(opts) {
+    const film = !!(opts && opts.film);
     const host = $('[data-rituals]'); if (!host) return;
     host.innerHTML = svg();
     el = {
@@ -174,23 +176,25 @@ ${strings}${pillars}
       if (animate && window.RoyalAudio && RoyalAudio.enabled) RoyalAudio.chime();
     };
 
-    if (RM) {
+    if (RM && !film) {
       Object.assign(S, { fly1: 1, fly2: 1, sash: 1, fire: 1, fireY: 392, fireS: 0.72, sindoor: 1, mangal: 1, halo: 1, gx: 420, bx: 500 });
       render(); setStep(5, false); return;
     }
     render(); setStep(0, false);
 
-    const rain = window.FX ? new FX.Rain($('#ritual-canvas'), { pal: FX.PAL.rose.concat(FX.PAL.marigold), count: 50 }) : null;
-    const tl = gsap.timeline({
+    const rain = !film && window.FX ? new FX.Rain($('#ritual-canvas'), { pal: FX.PAL.rose.concat(FX.PAL.marigold), count: 50 }) : null;
+    const update = () => {
+      render();
+      const t = tl.time(); let i = 0; STEPS.forEach((s, j) => { if (t >= s.t) i = j; }); setStep(i, !film);
+      const inPheras = t > 7.0 && t < 11.0;
+      cap.phera.classList.toggle('on', inPheras);
+      if (film) cap.phera.style.opacity = inPheras ? 1 : 0;
+      if (inPheras) cap.pn.textContent = Math.min(7, Math.floor(S.th / (Math.PI * 2)) + 1);
+      if (rain) { if (t > 16.4) rain.start(); else rain.stop(); }
+    };
+    const tl = gsap.timeline(film ? { paused: true, defaults: { ease: 'power2.inOut' } } : {
       defaults: { ease: 'power2.inOut' },
-      onUpdate: () => {
-        render();
-        const t = tl.time(); let i = 0; STEPS.forEach((s, j) => { if (t >= s.t) i = j; }); setStep(i, true);
-        const inPheras = t > 7.0 && t < 11.0;
-        cap.phera.classList.toggle('on', inPheras);
-        if (inPheras) cap.pn.textContent = Math.min(7, Math.floor(S.th / (Math.PI * 2)) + 1);
-        if (rain) { if (t > 16.4) rain.start(); else rain.stop(); }
-      },
+      onUpdate: update,
       scrollTrigger: {
         trigger: '#rituals', start: 'top top', end: () => '+=' + innerHeight * (MOBILE ? 6 : 7.5), pin: true, scrub: 1,
         onLeave: () => rain && rain.stop(), onLeaveBack: () => rain && rain.stop()
@@ -226,6 +230,7 @@ ${strings}${pillars}
       .to(S, { gBow: 14, bBow: 14, duration: 0.6, ease: 'sine.inOut' }, 16.5)
       .to(S, { gBow: 0, bBow: 0, duration: 0.6, ease: 'sine.inOut' }, 17.3)
       .to({}, { duration: 1.4 }, 18);
+    if (film) return { tl, update, steps: STEPS.map(s => s.t) };
   }
 
   return { init };
