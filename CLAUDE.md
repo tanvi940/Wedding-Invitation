@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 Royal wedding invitation for **Riya & Sagar** (2nd Feb 2027), sent by the **bride's family**.
-Live: **https://riya-weds-sagar.onrender.com**. Read `README.md` for the full handoff (file map, scenes, client details, gotchas).
+Live: **https://riya-weds-sagar.netlify.app**. Read `README.md` for the full handoff (file map, scenes, client details, gotchas).
 
 ## Stack
 Plain HTML/CSS/JS, no build step. GSAP 3.12.5 + ScrollTrigger, Lenis 1.0.42, Google Fonts (Cinzel, Cormorant Garamond, Great Vibes). Web Audio for effects. Python + Playwright + ffmpeg (imageio-ffmpeg) for the video/card export.
@@ -16,7 +16,7 @@ python tools/make_invite.py               # re-render exports/wedding-invite.mp4
 1. All wedding data lives in `js/config.js`. Change it there, not in the HTML.
 2. If names, dates, venues, wording or the song changed, re-run `python tools/make_invite.py` so the video and QR card match the site.
 3. Check at phone sizes (320×568, 375×812, 390×844, 430×932, 844×390 landscape). The pinned scenes (arrival, invitation, wedding) must fit one screen.
-4. Commit, then push to **both** remotes: `git push origin main` and `git push invitation main`. Render auto-deploys from `invitation` (tanvi940/Wedding-Invitation) in about 40 s.
+4. Commit, then push to **both** remotes: `git push origin main` and `git push invitation main` (Render backup auto-deploys from `invitation`). Then redeploy Netlify (the live site) as described in README "Hosting".
 5. Add any new client decision to `README.md` under "Decisions already made by the client".
 
 ## Client decisions: do not undo
