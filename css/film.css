@@ -15,7 +15,9 @@
 .fe-frame::before{content:"";position:absolute;inset:12px;border:1px solid rgba(212,175,55,.3);border-radius:20px}
 .fe-item,.fe-mono{position:relative}
 .fe-mono{width:17vw;height:17vw;filter:drop-shadow(0 0 14px rgba(245,215,122,.5))}
-.fe-kick{font-family:var(--display);font-size:2.6vw;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.fe-kick{font-family:var(--display);font-size:3.6vw;letter-spacing:.12em;color:var(--ivory)}
+.fe-son{font-style:italic;font-size:3.6vw;color:var(--ivory-2)}
+.fe-names em{font-size:.6em;font-style:italic}
 .fe-dear{font-family:var(--script);font-size:9.6vw;line-height:1.15;color:var(--gold-l);text-shadow:0 0 30px rgba(245,215,122,.35)}
 .fe-line{font-style:italic;font-size:4.4vw;color:var(--ivory-2)}
 .fe-names{font-family:var(--script);font-size:10vw;line-height:1.15}

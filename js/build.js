@@ -220,6 +220,7 @@ ${flowers}
   function build() {
     const fill = {
       bride: W.bride, groom: W.groom, venue: W.venue, city: W.city, families: W.families, hashtag: W.hashtag,
+      hosts: W.hosts, groomParents: W.groomParents,
       date: new Date(W.dateISO).toLocaleDateString('en-GB', Object.assign({ day: '2-digit', month: '2-digit', year: 'numeric' }, tz)).replace(/\//g, ' · '),
       dateLong: fmtDay(W.dateISO)
     };

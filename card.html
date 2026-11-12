@@ -19,22 +19,25 @@
   .corner{position:absolute;width:90px;height:90px;border:3px solid var(--gold);opacity:.8}
   .c1{top:70px;left:70px;border-right:0;border-bottom:0;border-top-left-radius:30px}.c2{top:70px;right:70px;border-left:0;border-bottom:0;border-top-right-radius:30px}
   .c3{bottom:70px;left:70px;border-right:0;border-top:0;border-bottom-left-radius:30px}.c4{bottom:70px;right:70px;border-left:0;border-top:0;border-bottom-right-radius:30px}
-  .mono{position:relative;width:170px;height:170px;filter:drop-shadow(0 0 18px rgba(245,215,122,.45))}
+  .mono{position:relative;width:128px;height:128px;filter:drop-shadow(0 0 18px rgba(245,215,122,.45))}
   .mono svg{width:100%;height:100%}
-  .kick{position:relative;font-family:Cinzel,serif;font-size:22px;letter-spacing:.32em;color:var(--gold);margin-top:22px}
-  .dear{position:relative;font-family:"Great Vibes",cursive;font-size:84px;line-height:1.1;color:var(--gold-l);margin-top:18px;text-shadow:0 0 30px rgba(245,215,122,.3)}
-  .line{position:relative;font-style:italic;font-size:32px;color:rgba(251,243,228,.8);margin-top:8px}
-  .names{position:relative;font-family:"Great Vibes",cursive;font-size:118px;line-height:1.1;margin-top:6px;background:linear-gradient(100deg,#b8892c,#fff1c1 35%,#d4af37 55%,#f5d77a 80%,#a87b25);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .kick{position:relative;font-family:Cinzel,serif;font-size:20px;letter-spacing:.32em;color:var(--gold);margin-top:14px}
+  .dear{position:relative;font-family:"Great Vibes",cursive;font-size:64px;line-height:1.1;color:var(--gold-l);margin-top:10px;text-shadow:0 0 30px rgba(245,215,122,.3)}
+  .hosts{position:relative;font-family:Cinzel,serif;font-size:30px;letter-spacing:.08em;color:var(--ivory);margin-top:8px}
+  .line{position:relative;font-style:italic;font-size:28px;color:rgba(251,243,228,.8);margin-top:2px}
+  .son{position:relative;font-style:italic;font-size:26px;color:rgba(251,243,228,.8);margin-top:-6px}
+  .names em{font-size:.55em}
+  .names{position:relative;font-family:"Great Vibes",cursive;font-size:100px;line-height:1.1;margin-top:2px;background:linear-gradient(100deg,#b8892c,#fff1c1 35%,#d4af37 55%,#f5d77a 80%,#a87b25);-webkit-background-clip:text;background-clip:text;color:transparent}
   .date{position:relative;font-family:Cinzel,serif;font-size:34px;letter-spacing:.14em;margin-top:8px}
   .venue{position:relative;font-family:Cinzel,serif;font-size:22px;letter-spacing:.3em;color:var(--gold);margin-top:10px;text-transform:uppercase}
-  .qr-row{position:relative;display:flex;align-items:center;gap:44px;margin-top:34px;text-align:left}
-  .qr{width:270px;height:270px;padding:18px;background:#fbf3e4;border-radius:22px;box-shadow:0 0 0 4px #d4af37,0 0 0 10px rgba(18,6,9,.8),0 0 0 11px rgba(212,175,55,.5),0 20px 50px rgba(0,0,0,.6)}
+  .qr-row{position:relative;display:flex;align-items:center;gap:44px;margin-top:26px;text-align:left}
+  .qr{width:236px;height:236px;padding:18px;background:#fbf3e4;border-radius:22px;box-shadow:0 0 0 4px #d4af37,0 0 0 10px rgba(18,6,9,.8),0 0 0 11px rgba(212,175,55,.5),0 20px 50px rgba(0,0,0,.6)}
   .qr svg{width:100%;height:100%}
   .qr-text{max-width:400px}
   .qr-text b{display:block;font-family:"Great Vibes",cursive;font-weight:400;font-size:58px;line-height:1.05;color:var(--gold-l)}
   .qr-text span{display:block;font-size:28px;font-style:italic;color:rgba(251,243,228,.82);margin-top:10px;line-height:1.35}
   .qr-text em{display:block;font-family:Cinzel,serif;font-style:normal;font-size:18px;letter-spacing:.24em;color:var(--gold);margin-top:16px;text-transform:uppercase}
-  .evs{position:relative;display:flex;flex-wrap:wrap;justify-content:center;row-gap:18px;margin-top:40px;padding-top:22px;border-top:1px solid rgba(212,175,55,.35);width:100%}
+  .evs{position:relative;display:flex;flex-wrap:wrap;justify-content:center;row-gap:18px;margin-top:28px;padding-top:20px;border-top:1px solid rgba(212,175,55,.35);width:100%}
   .ev{flex:0 0 33.33%;padding:0 10px}
   .ev b{display:block;white-space:nowrap;font-family:"Great Vibes",cursive;font-weight:400;font-size:40px;color:var(--gold-l);line-height:1.1}
   .ev span{display:block;font-family:Cinzel,serif;font-size:17px;letter-spacing:.14em;color:rgba(251,243,228,.8);margin-top:4px}
@@ -47,8 +50,10 @@
   <div class="mono" data-emblem></div>
   <p class="kick">॥ SHREE GANESHAYA NAMAH ॥</p>
   <p class="dear">Dear Family &amp; Friends,</p>
-  <p class="line">you are cordially invited to the wedding of</p>
-  <p class="names"><span data-w="bride"></span> &amp; <span data-w="groom"></span></p>
+  <p class="hosts" data-w="hosts"></p>
+  <p class="line">cordially invite you to the wedding of their daughter</p>
+  <p class="names"><span data-w="bride"></span> <em>with</em> <span data-w="groom"></span></p>
+  <p class="son">son of <span data-w="groomParents"></span></p>
   <p class="date" data-w="dateLong"></p>
   <p class="venue" data-w="venue"></p>
   <div class="qr-row">

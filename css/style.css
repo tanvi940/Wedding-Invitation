@@ -224,6 +224,9 @@ a{color:inherit}
 .card-border rect.i{stroke-width:.7;opacity:.7}
 .ic-mono{width:13cqw;height:13cqw}
 .ic-small{font-style:italic;font-size:2.7cqw;line-height:1.35;color:#6b3a1e;max-width:70cqw}
+.ic-hosts{font-family:var(--display);font-size:3cqw;letter-spacing:.08em;color:#5a2a10}
+.intro-with,.ic-names em{font-style:italic}
+.finale-from{font-family:var(--display);font-size:.8rem;letter-spacing:.18em;color:var(--ivory);margin:.2em 0 .6em}
 .ic-names{font-family:var(--script);font-weight:400;font-size:10cqw;line-height:1.05;color:#8a2a1a;display:flex;align-items:baseline;gap:2cqw}
 .ic-names em{font-style:normal;font-size:.6em;color:#a8802a}
 .ic-date{font-family:var(--display);font-size:3.2cqw;letter-spacing:.14em;color:#5a2a10}
@@ -527,7 +530,8 @@ a{color:inherit}
   .wax-seal{top:44%;width:24%;margin:-12% 0 0 -12%}
   .inv-card{gap:3cqw;padding:8cqw 7cqw}
   .ic-mono{width:20cqw;height:20cqw}
-  .ic-small{font-size:4.4cqw}
+  .ic-small{font-size:4.2cqw}
+  .ic-hosts{font-size:4.6cqw}
   .ic-names{font-size:14cqw;flex-direction:column;align-items:center;gap:0}
   .ic-date{font-size:4.6cqw}
   .ic-venue{font-size:3.6cqw;letter-spacing:.2em}

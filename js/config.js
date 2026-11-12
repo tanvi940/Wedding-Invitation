@@ -11,6 +11,9 @@ window.WEDDING = {
   dateISO: "2027-02-02T17:00:00+05:30",
   city: "Faridabad",
   venue: "Khalsa Garden, Suraj Kund, Faridabad",
+  // The invitation is sent by the BRIDE'S family (hosts). "Our residence" = the bride's home.
+  hosts: "Shri Rajendra & Smt. Sunita",                       // bride's parents (surname still to confirm)
+  groomParents: "Shri Kaushal Verma & Smt. Pooja Verma",
   families: "With the blessings of Shri Rajendra & Smt. Sunita and Shri Kaushal Verma & Smt. Pooja Verma",
   hashtag: "",
   // Where the website will live once hosted — the QR card points here

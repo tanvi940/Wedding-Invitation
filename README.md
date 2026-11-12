@@ -152,6 +152,7 @@ The countdown targets Lagan Sagai (2 Feb, 5 PM) until the wedding time is known.
 - **No real photos.** The photo-based Our Story and Gallery sections and the couple photo slot were removed at the client's request and replaced by the animated ritual scene. Do not re-add photo sections or invent a love story.
 - **The RSVP section ("Will You Join Us?") was removed** entirely. `scenes.js` `rsvp()` safely no-ops; leftover RSVP CSS is harmless.
 - **No personalisation and no guest list.** One common video and one common card for everyone (an earlier per-guest `?to=Name` version was intentionally removed).
+- **The invitation is from the BRIDE'S family.** Hosts = `hosts` in config (Shri Rajendra & Smt. Sunita); wording is "…invite you to the wedding of their daughter Riya with Sagar, son of `groomParents`…" on the website intro, envelope card, finale, video closing card and QR card. "Our residence" = the bride's home.
 - **Delivered on WhatsApp as a video plus a QR card, not as a link.**
 - **The ritual animation stays on the website only, not in the video.**
 - **Must be phone-friendly.** Mobile tweaks live in the `@media (max-width:768px)` block; `FX.MOBILE` reduces particles.
