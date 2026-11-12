@@ -46,7 +46,13 @@ def main():
         page = browser.new_page()
         page.goto(f"{base}/film.html")
         page.wait_for_function("window.RoyalAudio && window.FILM", timeout=60000)
-        meta = page.evaluate("({d: FILM.duration, c: FILM.cues})")
+        meta = page.evaluate("({d: FILM.duration, c: FILM.cues, song: (window.WEDDING && WEDDING.musicFile) || ''})")
+        song = (ROOT / meta["song"]) if meta["song"] else None
+        if song and not song.exists():
+            print(f"  ! musicFile {meta['song']} not found — using the built-in music")
+            song = None
+        if song:
+            meta["c"]["noMusic"] = True          # effects only; the song is mixed in below
         wav.write_bytes(base64.b64decode(page.evaluate("(m) => RoyalAudio.renderSoundtrack(m.d, m.c)", meta)))
         page.close()
 
@@ -57,10 +63,20 @@ def main():
         page.goto(f"{base}/film.html")
         page.wait_for_function("window.FILM && FILM.ready", timeout=60000)
         page.wait_for_timeout(600)
+        dur = meta["d"]
+        if song:   # custom song under the effects, faded in and out
+            audio_in = ["-i", str(wav), "-stream_loop", "-1", "-i", str(song)]
+            audio_map = ["-filter_complex",
+                         f"[2:a]atrim=0:{dur},volume=0.85,afade=t=in:d=2,afade=t=out:st={dur - 3}:d=3[m];"
+                         f"[1:a]volume=1.6[f];[f][m]amix=inputs=2:duration=first:normalize=0[a]",
+                         "-map", "0:v", "-map", "[a]"]
+        else:
+            audio_in = ["-i", str(wav)]
+            audio_map = ["-af", "volume=1.8"]
         cmd = [ffmpeg_exe(), "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS), "-c:v", "mjpeg", "-i", "-",
-               "-i", str(wav), "-vf", "scale=in_range=pc:out_range=tv,format=yuv420p",
+               *audio_in, "-vf", "scale=in_range=pc:out_range=tv,format=yuv420p",
                "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-profile:v", "high", "-level", "4.0",
-               "-af", "volume=1.8", "-c:a", "aac", "-b:a", "160k", "-shortest", "-movflags", "+faststart", str(video)]
+               *audio_map, "-c:a", "aac", "-b:a", "160k", "-t", str(dur), "-movflags", "+faststart", str(video)]
         enc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
         for i in range(total):
             page.evaluate(f"renderFrame({i / FPS})")

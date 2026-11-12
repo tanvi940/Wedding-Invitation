@@ -277,7 +277,8 @@ window.Scenes = (function () {
     $$('.beam').forEach((b, i) => gsap.fromTo(b, { rotation: i % 2 ? -24 : 24 }, { rotation: i % 2 ? 18 : -18, duration: rand(2.6, 4), repeat: -1, yoyo: true, ease: 'sine.inOut' }));
     gsap.from('.spotlight', { opacity: 0, scale: 0.3, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: sang, start: 'top 50%' } });
     gsap.from('#sangeet .ev-inner', { scale: 0.6, opacity: 0, filter: 'blur(20px)', duration: 1.4, ease: 'expo.out', clearProps: 'filter', scrollTrigger: { trigger: sang, start: 'top 50%' } });
-    gsap.from('#sangeet .ec-title', { opacity: 0, duration: 0.06, repeat: 5, yoyo: true, ease: 'steps(1)', scrollTrigger: { trigger: sang, start: 'top 40%' } });
+    // neon flicker — even repeat count + explicit end so the title always ends fully visible
+    gsap.fromTo('#sangeet .ec-title', { opacity: 0 }, { opacity: 1, duration: 0.07, repeat: 6, yoyo: true, ease: 'steps(1)', immediateRender: false, scrollTrigger: { trigger: sang, start: 'top 40%' }, onComplete: () => gsap.set('#sangeet .ec-title', { opacity: 1 }) });
 
     /* LAGAN SAGAI — a field of diyas lights up one by one */
     const lag = $('#lagan');

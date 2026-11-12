@@ -85,9 +85,19 @@
       beat++; nextTime += BEAT;
     }
   }
+  // custom song (WEDDING.musicFile) replaces the built-in music when set
+  let song = null;
+  const songFile = () => (window.WEDDING && WEDDING.musicFile) || '';
   function startMusic() {
     if (A.musicPlaying) return;
-    A.musicPlaying = true; nextTime = A.ctx.currentTime + 0.15;
+    A.musicPlaying = true;
+    if (songFile()) {
+      if (!song) { song = new Audio(songFile()); song.loop = true; song.preload = 'auto'; }
+      song.volume = 0; const p = song.play(); if (p && p.catch) p.catch(() => {});
+      let v = 0; clearInterval(song._fade); song._fade = setInterval(() => { v = Math.min(0.75, v + 0.05); song.volume = v; if (v >= 0.75) clearInterval(song._fade); }, 100);
+      return;
+    }
+    nextTime = A.ctx.currentTime + 0.15;
     clearInterval(timer); timer = setInterval(() => schedule(), 90);
     music.gain.cancelScheduledValues(A.ctx.currentTime);
     music.gain.setTargetAtTime(0.9, A.ctx.currentTime, 1.2);
@@ -95,6 +105,7 @@
   function stopMusic() {
     if (!A.musicPlaying) return;
     A.musicPlaying = false;
+    if (song) { clearInterval(song._fade); song.pause(); return; }
     music.gain.setTargetAtTime(0, A.ctx.currentTime, 0.3);
     setTimeout(() => { if (!A.musicPlaying) clearInterval(timer); }, 1500);
   }
@@ -202,7 +213,8 @@
     buildGraph(off); A.enabled = true; master.gain.value = 0.85;
     music.gain.setValueAtTime(0, 0); music.gain.linearRampToValueAtTime(0.85, 3);
     music.gain.setValueAtTime(0.85, dur - 3); music.gain.linearRampToValueAtTime(0, dur - 0.2);
-    nextTime = 0.4; beat = 0; mel = 3; schedule(dur - 1.5);
+    // with a custom song, the video exporter mixes the song in with ffmpeg instead
+    if (!cues.noMusic) { nextTime = 0.4; beat = 0; mel = 3; schedule(dur - 1.5); }
     startWind();
     (cues.bells || []).forEach(t => A.bells(t));
     (cues.doors || []).forEach(t => A.doors(t));

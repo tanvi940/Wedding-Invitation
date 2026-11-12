@@ -134,7 +134,7 @@ Sound cues are in `FILM.cues`.
 | Mehendi & Sangeet (combined) | 31 Jan 2027, 7:00 PM onwards, at residence |
 | Chaak Bhaat | 1 Feb 2027, time not given, at residence |
 | Lagan Sagai | 2 Feb 2027, 5:00 PM onwards, Khalsa Gardens (hall) |
-| Wedding | 2 Feb 2027, **time not given**, Khalsa Gardens, Suraj Kund, Faridabad |
+| Wedding | 2 Feb 2027, 8:00 PM onwards, Khalsa Gardens, Suraj Kund, Faridabad (countdown target) |
 | House (Haldi, Mehendi & Sangeet, Chaak Bhaat) | Galaxy Vega Apartment Tower 3, Plot 3-B, Nawada Rd, Uttam Nagar, New Delhi 110059 (maps.app.goo.gl/UWJPkX2jKbTH4o6j7) |
 | Hall | Khalsa Gardens, Suraj Kund Badkhal Rd, Green Fields Colony, Faridabad 121004 (maps.app.goo.gl/nMGBmLycufdgMkjp6) |
 
@@ -144,7 +144,9 @@ Each event in `config.js` has:
 - `time`: display text; empty means date only, and the calendar entry becomes all-day.
 - `scene`: which animated scene shows the card. Haldi uses the marigold scene; Mehendi & Sangeet the stage lights; Chaak Bhaat the henna mandala; Lagan Sagai the diya field (`#lagan`, new); Wedding the curtains and mandap.
 
-The countdown targets Lagan Sagai (2 Feb, 5 PM) until the wedding time is known.
+The countdown targets the wedding (2 Feb, 8 PM).
+
+**Custom song:** set `musicFile` in config (e.g. `music/song.mp3`). The website plays it (looped, faded) instead of the synthesized music, and `tools/make_invite.py` mixes it under the sound effects in the video. The client said they will send a new song.
 
 ## Decisions already made by the client (do not undo)
 
@@ -162,7 +164,7 @@ The countdown targets Lagan Sagai (2 Feb, 5 PM) until the wedding time is known.
 ## Still to do (waiting on the client)
 
 1. **Open questions for the client:**
-   - Wedding (pheras) start time, and the Chaak Bhaat time
+   - Chaak Bhaat time
    - Bride's family surname, for the family blessing line
    - Optional: dress codes, hashtag, colour theme, Hindi names, music feel
 2. **Hosting:** deploy the folder as a static site (Netlify, Vercel or GitHub Pages all work; no build needed). Then set `siteURL` in `js/config.js` and re-run `tools/make_invite.py` so the QR works. **The QR currently points to `https://your-wedding-site.example` (placeholder).**

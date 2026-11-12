@@ -7,8 +7,8 @@ window.WEDDING = {
   bride: "Riya",
   groom: "Sagar",
   initials: ["R", "S"],
-  // Countdown target. Wedding start time not given yet — counting down to Lagan Sagai (5:00 PM, 2 Feb 2027).
-  dateISO: "2027-02-02T17:00:00+05:30",
+  // Countdown target: the wedding, 8:00 PM, 2 Feb 2027.
+  dateISO: "2027-02-02T20:00:00+05:30",
   city: "Faridabad",
   venue: "Khalsa Gardens, Suraj Kund, Faridabad",
   // Venue section: one gold-framed Google Map per place. Events point at a place via place.
@@ -29,6 +29,9 @@ window.WEDDING = {
   groomParents: "Shri Kaushal Verma & Smt. Pooja Verma",
   families: "With the blessings of Shri Rajendra & Smt. Sunita and Shri Kaushal Verma & Smt. Pooja Verma",
   hashtag: "",
+  // Background song: put the file in /music and set its path here (e.g. "music/song.mp3").
+  // Empty = the built-in sitar-style music. Used by the website and the WhatsApp video.
+  musicFile: "",
   // Where the website will live once hosted — the QR card points here
   siteURL: "https://your-wedding-site.example",
 
@@ -57,7 +60,7 @@ window.WEDDING = {
       place: "hall", venue: "Khalsa Gardens, Suraj Kund, Faridabad", dress: "",
       blurb: "The two families come together for the sacred Lagan and Sagai rituals." },
     { key: "wedding", scene: "wedding", icon: "wedding", name: "The Wedding", tag: "Seven Sacred Vows",
-      date: "2027-02-02T00:00:00+05:30", time: "", hours: 0,
+      date: "2027-02-02T20:00:00+05:30", time: "8:00 PM onwards", hours: 5,
       place: "hall", venue: "Khalsa Gardens, Suraj Kund, Faridabad", dress: "",
       blurb: "Under the mandap, before the sacred fire, two souls take seven steps into forever." }
   ]
