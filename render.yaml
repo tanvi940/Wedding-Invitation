@@ -1,0 +1,16 @@
+# Render blueprint — hosts the wedding website as a free static site.
+# Render dashboard → New → Blueprint → pick this repo. No build step needed.
+services:
+  - type: web
+    name: riya-weds-sagar
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    headers:
+      # always fetch fresh pages/scripts so guests never see an outdated version
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+      - path: /music/*
+        name: Cache-Control
+        value: public, max-age=604800
