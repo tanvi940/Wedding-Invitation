@@ -253,7 +253,7 @@
     targets() {
       const w = Math.round(this.w), h = Math.round(this.h), text = this.text;
       const pts = sample(w, h, g => {
-        let fs = Math.min(w * 0.15, 170); g.font = `${fs}px "Great Vibes", cursive`;
+        let fs = Math.max(48, Math.min(w * 0.10, 136));   // same size as the crisp CSS names g.font = `${fs}px "Great Vibes", cursive`;
         const tw = g.measureText(text).width; if (tw > w * 0.9) { fs *= (w * 0.9) / tw; g.font = `${fs}px "Great Vibes", cursive`; }
         g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#fff'; g.fillText(text, w / 2, h * 0.36);
       }, MOBILE ? 3 : 3);
