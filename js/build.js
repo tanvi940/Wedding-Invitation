@@ -220,7 +220,7 @@ ${flowers}
   function build() {
     const fill = {
       bride: W.bride, groom: W.groom, venue: W.venue, city: W.city, families: W.families, hashtag: W.hashtag,
-      hosts: W.hosts, groomParents: W.groomParents,
+      hosts: W.hosts, groomParents: W.groomParents, venueName: W.venueName, venueArea: W.venueArea,
       date: new Date(W.dateISO).toLocaleDateString('en-GB', Object.assign({ day: '2-digit', month: '2-digit', year: 'numeric' }, tz)).replace(/\//g, ' · '),
       dateLong: fmtDay(W.dateISO)
     };
@@ -235,6 +235,14 @@ ${flowers}
       $$(`.menu a[href="#${id}"]`).forEach(a => a.closest('li').remove());
     });
     $$('.menu li a span').forEach((s, i) => { s.textContent = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'][i] || ''; });
+    // venue map + direction links
+    const q = encodeURIComponent(W.mapQuery || W.venue);
+    const map = $('[data-map]'); if (map) map.src = `https://maps.google.com/maps?q=${q}&z=15&output=embed`;
+    $$('[data-directions]').forEach(a => { a.href = `https://www.google.com/maps/dir/?api=1&destination=${q}`; });
+    $$('[data-openmap]').forEach(a => { a.href = W.mapLink || `https://www.google.com/maps/search/?api=1&query=${q}`; });
+    const atVenue = W.events.filter(e => e.venue === W.venue);
+    set('[data-venue-events]', atVenue.map(e => e.name.replace('The ', '')).join(' & '));
+    set('[data-venue-dates]', [...new Set(atVenue.map(e => fmtDay(e.date)))].join(' · '));
     $$('[data-emblem]').forEach(el => { el.innerHTML = emblem(); });
     // diya field (Lagan Sagai)
     let dh = ''; const nD = MOBILE ? 16 : 30;
@@ -283,7 +291,7 @@ ${flowers}
       const [o, i] = svg.querySelectorAll('rect'), r = 18;
       [[o, 8, r], [i, 15, r - 6]].forEach(([el, m, rr]) => { if (!el) return; el.setAttribute('x', m); el.setAttribute('y', m); el.setAttribute('width', Math.max(0, w - m * 2)); el.setAttribute('height', Math.max(0, h - m * 2)); el.setAttribute('rx', rr); });
     }));
-    $$('.event-card, .inv-card, .rsvp-card').forEach(el => ro.observe(el));
+    $$('.event-card, .inv-card, .rsvp-card, .venue-card').forEach(el => ro.observe(el));
   }
 
   window.Build = { build, sizeBorders, fmtDay, emblem, when };

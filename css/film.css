@@ -5,6 +5,10 @@
 .film #intro{z-index:200}
 .film .intro-copy{bottom:calc(9vh + min(70vh,700px) * .12)}
 .film .intro-guest{font-size:1.15rem;margin:.7em 0 .1em;color:var(--gold-xl)}
+.film .couple-names{font-size:13.5vw;margin-top:3.5vh}
+.film .cn-amp{font-size:2.6vw}
+.film .couple-line{font-size:4.2vw}
+.film .couple-date{font-size:3.6vw}
 .film #rituals{position:fixed;inset:0;z-index:250;opacity:0}
 .film .rit-phera{transition:none}
 .film .rit-head{padding-top:7vh}
@@ -17,7 +21,9 @@
 .fe-mono{width:17vw;height:17vw;filter:drop-shadow(0 0 14px rgba(245,215,122,.5))}
 .fe-kick{font-family:var(--display);font-size:3.6vw;letter-spacing:.12em;color:var(--ivory)}
 .fe-son{font-style:italic;font-size:3.6vw;color:var(--ivory-2)}
-.fe-names em{font-size:.6em;font-style:italic}
+.fe-names{display:flex;align-items:center;justify-content:center;gap:4.5vw;margin:.6vh 0}
+.fe-names .nm{font-family:var(--script);font-size:13vw;line-height:1.15;padding:0 .1em;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+.fe-names .nm-with{font-family:var(--display);font-size:2.8vw;letter-spacing:.3em;color:var(--gold);padding:1vw 0;border-top:1px solid rgba(212,175,55,.6);border-bottom:1px solid rgba(212,175,55,.6)}
 .fe-dear{font-family:var(--script);font-size:9.6vw;line-height:1.15;color:var(--gold-l);text-shadow:0 0 30px rgba(245,215,122,.35)}
 .fe-line{font-style:italic;font-size:4.4vw;color:var(--ivory-2)}
 .fe-names{font-family:var(--script);font-size:10vw;line-height:1.15}

@@ -11,6 +11,12 @@ window.WEDDING = {
   dateISO: "2027-02-02T17:00:00+05:30",
   city: "Faridabad",
   venue: "Khalsa Garden, Suraj Kund, Faridabad",
+  // Venue section (Google Map). mapQuery is what Google searches for; paste an exact
+  // Google Maps share link into mapLink to make the buttons open that precise pin.
+  venueName: "Khalsa Garden",
+  venueArea: "Suraj Kund, Faridabad",
+  mapQuery: "Khalsa Garden, Suraj Kund, Faridabad, Haryana",
+  mapLink: "",
   // The invitation is sent by the BRIDE'S family (hosts). "Our residence" = the bride's home.
   hosts: "Shri Rajendra & Smt. Sunita",                       // bride's parents (surname still to confirm)
   groomParents: "Shri Kaushal Verma & Smt. Pooja Verma",

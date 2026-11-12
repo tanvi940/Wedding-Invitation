@@ -301,6 +301,19 @@ window.Scenes = (function () {
   }
 
   /* =========================================================
+     VENUE — gold border draws, map unveils through an arch, pin drops
+     ========================================================= */
+  function venue() {
+    const card = $('.venue-card'); if (!card || RM) return;
+    const st = { trigger: card, start: 'top 75%' };
+    gsap.set('.venue-card .card-border rect', { strokeDashoffset: 1 });
+    gsap.to('.venue-card .card-border rect', { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut', stagger: 0.3, scrollTrigger: st });
+    gsap.fromTo('.map-frame', { clipPath: 'inset(100% 0% 0% 0% round 40px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: 1.6, ease: 'power3.inOut', scrollTrigger: st, onComplete: () => gsap.set('.map-frame', { clearProps: 'clipPath' }) });
+    gsap.from('.venue-pin', { y: -120, opacity: 0, duration: 1.1, ease: 'bounce.out', delay: 0.5, scrollTrigger: st });
+    gsap.from('.venue-info > *:not(.venue-pin)', { opacity: 0, y: 24, duration: 0.9, stagger: 0.12, delay: 0.7, ease: 'power3.out', scrollTrigger: st });
+  }
+
+  /* =========================================================
      RINGS — two rings spin together into an infinity
      ========================================================= */
   function rings() {
@@ -407,7 +420,12 @@ window.Scenes = (function () {
     const rain = new FX.Rain($('#finale-petals'), { pal: PAL.rose.concat(PAL.blush), count: 55 });
     ScrollTrigger.create({
       trigger: '#finale', start: 'top 55%', end: 'bottom top',
-      onEnter: () => { names.form(); fw.start(); rain.start(); FX.stream(); setTimeout(() => FX.stream(), 1600); },
+      onEnter: () => {
+        names.form(); fw.start(); rain.start(); FX.stream(); setTimeout(() => FX.stream(), 1600);
+        // once the particles have formed, crisp gold names take over and the particles soften into a glow
+        gsap.to('.finale-names', { opacity: 1, duration: 1.4, delay: 2.4, ease: 'power2.out' });
+        gsap.to(names, { dim: 0.28, duration: 1.4, delay: 2.6 });
+      },
       onEnterBack: () => { fw.start(); rain.start(); },
       onLeaveBack: () => { fw.stop(); rain.stop(); }
     });
@@ -497,7 +515,7 @@ window.Scenes = (function () {
 
   function init(lenis) {
     headings(); arrivalSetup(); arrivalFX(); invitation(); story(); gallery(); events();
-    if (window.Rituals) Rituals.init();          // pinned — must be created in page order
+    venue();
     rings(); countdown(); rsvp(); finale(); interactions(lenis);
   }
 

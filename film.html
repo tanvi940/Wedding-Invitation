@@ -38,7 +38,7 @@ document.documentElement.classList.add('js');
   <div class="couple-reveal">
     <div class="couple-halo"></div>
     <figure class="couple-frame"><div class="couple-art" data-couple></div></figure>
-    <h2 class="couple-names"><span class="cn cn-bride gold-text" data-w="bride"></span><span class="cn-amp">&amp;</span><span class="cn cn-groom gold-text" data-w="groom"></span></h2>
+    <h2 class="couple-names"><span class="cn cn-bride gold-text" data-w="bride"></span><span class="cn-amp">WITH</span><span class="cn cn-groom gold-text" data-w="groom"></span></h2>
     <p class="couple-line">request the honour of your presence</p>
     <p class="couple-date" data-w="date"></p>
   </div>
@@ -66,21 +66,6 @@ document.documentElement.classList.add('js');
   <div class="intro-flash"></div>
 </section>
 
-<!-- scene 3: the couple performs the rituals -->
-<section id="rituals" class="rituals">
-  <div class="rit-head">
-    <p class="eyebrow">The Sacred Rituals</p>
-    <div class="rit-caption">
-      <p class="rit-step">Ritual <span class="rit-n">1</span> of 6</p>
-      <h2 class="rit-title">Varmala</h2>
-      <p class="rit-text">The garland exchange — a joyful acceptance of each other.</p>
-      <p class="rit-phera">Phera <span>1</span> of 7</p>
-    </div>
-  </div>
-  <div class="rit-stage" data-rituals></div>
-  <ol class="rit-dots"><li></li><li></li><li></li><li></li><li></li><li></li></ol>
-</section>
-
 <!-- scene 4: closing card -->
 <section class="film-end">
   <canvas id="fe-canvas"></canvas>
@@ -89,7 +74,7 @@ document.documentElement.classList.add('js');
   <p class="fe-item fe-dear">Dear Family &amp; Friends,</p>
   <p class="fe-item fe-kick" data-w="hosts"></p>
   <p class="fe-item fe-line">invite you to the wedding of their daughter</p>
-  <p class="fe-item fe-names gold-text"><span data-w="bride"></span> <em>with</em> <span data-w="groom"></span></p>
+  <p class="fe-item fe-names"><span class="nm gold-text" data-w="bride"></span><span class="nm-with">with</span><span class="nm gold-text" data-w="groom"></span></p>
   <p class="fe-item fe-son">son of <span data-w="groomParents"></span></p>
   <p class="fe-item fe-date" data-w="dateLong"></p>
   <p class="fe-item fe-venue" data-w="venue"></p>
@@ -102,7 +87,6 @@ document.documentElement.classList.add('js');
 <script src="js/audio.js"></script>
 <script src="js/fx.js"></script>
 <script src="js/build.js"></script>
-<script src="js/rituals.js"></script>
 <script src="js/film.js"></script>
 </body>
 </html>

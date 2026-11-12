@@ -4,7 +4,7 @@ An animation-rich, cinematic **royal Indian wedding invitation**, delivered in t
 
 | Deliverable | File | What it is |
 |---|---|---|
-| Interactive website | `index.html` | Scroll-driven "royal wedding film": palace doors, vintage car arrival, envelope, 5 ceremony scenes, an animated couple performing 6 rituals, rings, countdown, finale |
+| Interactive website | `index.html` | Scroll-driven "royal wedding film": palace doors, vintage car arrival, envelope, 5 ceremony scenes, a Google Map venue section, rings, countdown, finale |
 | WhatsApp video | `exports/wedding-invite.mp4` | 35-second portrait (720×1280) film with synthesized sound, rendered frame-by-frame from `film.html` |
 | WhatsApp QR card | `exports/wedding-card.png` | 1080×1350 gold card; its QR opens the website |
 
@@ -73,8 +73,6 @@ js/build.js         Build: generates SVG art (emblem, palace, car with rotating 
                     marigolds) and data-driven markup; fills [data-w] text; sizes card borders.
 js/intro.js         Intro sequence: light → dust → particle emblem → doors → typing →
                     "Open Invitation" → 3D door swing, camera zoom, petal storm, flash.
-js/rituals.js       Animated couple (SVG) performing 6 rituals, scroll-scrubbed; one state object S
-                    tweened by GSAP → render() sets every transform (arms, orbit, garlands, sash).
 js/scenes.js        Every ScrollTrigger scene + micro-interactions (tilt, magnetic, ripple,
                     cursor, menu, .ics calendar download).
 js/main.js          Bootstrap: Build → Lenis → FX → Scenes → Intro; scroll unlock after intro.
@@ -100,7 +98,7 @@ Wedding-Details-Needed-v2.docx  Checklist the couple fills in (names, ceremonies
    - Chaak Bhaat (`#mehendi`): henna mandala draws itself, circular card reveal
    - Lagan Sagai (`#lagan`): a field of diyas lights up one by one
    - Wedding (pinned): red velvet curtains part to reveal the mandap with sacred fire
-5. **The Rituals** (`#rituals`, pinned about 7.5 viewport heights, `js/rituals.js`): an illustrated bride and groom perform, step by step: Varmala (garlands fly and land on each other), Gathbandhan (a gold sash ties them), Saat Phere (they circle the sacred fire 7 times with depth sorting and a live phera counter), Sindoor Daan, Mangalsutra, and Ashirwad (bow, halo, petal rain). A caption and progress dots update per ritual.
+5. **The Venue** (`#venue`): a live Google Map (keyless embed `maps.google.com/maps?q=…&output=embed`) in a gold arched frame, with a dropping gold pin, the ceremonies held there, and "Get Directions" / "Open in Google Maps" buttons. Set `venueName`, `venueArea`, `mapQuery` (and optionally an exact `mapLink`) in `config.js`.
 6. **Rings** (`#rings`, pinned): two 3D rings spin together, then an infinity path draws itself.
 7. **Countdown** (`#countdown`): digit roll-in, live flip digits, golden fireworks.
 8. **Finale** (`#finale`): couple's names formed by gold particles (they react to the cursor and scatter on click), rose rain, fireworks, "Relive the invitation" button.
@@ -121,7 +119,7 @@ Global layers: a custom cursor and gold dust (desktop only), ambient floating pe
 | 23.5–27 s | Couple reveal and names |
 | 28.6–35 s | Closing card: "Dear Family & Friends", date, venue, 5 ceremonies, "Scan your invitation card…" |
 
-Sound cues are in `FILM.cues`. **The rituals are intentionally NOT in the video** (client request, website only). `WITH_RITUALS` at the top of `film.js` switches them back in (adds 14.8 s; `Rituals.init({film:true})` returns a paused timeline that the film nests at `RS` with `timeScale` `RX`).
+Sound cues are in `FILM.cues`.
 
 ---
 
@@ -149,12 +147,13 @@ The countdown targets Lagan Sagai (2 Feb, 5 PM) until the wedding time is known.
 ## Decisions already made by the client (do not undo)
 
 - **Reception was removed.** The ceremonies are the five listed above.
-- **No real photos.** The photo-based Our Story and Gallery sections and the couple photo slot were removed at the client's request and replaced by the animated ritual scene. Do not re-add photo sections or invent a love story.
+- **No real photos.** The photo-based Our Story and Gallery sections and the couple photo slot were removed at the client's request. Do not re-add photo sections or invent a love story.
+- **The animated ritual scene was removed** (client preferred a Google Map venue section in its place). Do not re-add it.
 - **The RSVP section ("Will You Join Us?") was removed** entirely. `scenes.js` `rsvp()` safely no-ops; leftover RSVP CSS is harmless.
 - **No personalisation and no guest list.** One common video and one common card for everyone (an earlier per-guest `?to=Name` version was intentionally removed).
+- **Names must be clearly visible, never cramped:** bride and groom are separate script words with a small spaced Cinzel "WITH" between them (classes `nm` / `nm-with` / `cn-amp`), on the cards, the couple reveal and the finale (crisp DOM names fade in over the particle names).
 - **The invitation is from the BRIDE'S family.** Hosts = `hosts` in config (Shri Rajendra & Smt. Sunita); wording is "…invite you to the wedding of their daughter Riya with Sagar, son of `groomParents`…" on the website intro, envelope card, finale, video closing card and QR card. "Our residence" = the bride's home.
 - **Delivered on WhatsApp as a video plus a QR card, not as a link.**
-- **The ritual animation stays on the website only, not in the video.**
 - **Must be phone-friendly.** Mobile tweaks live in the `@media (max-width:768px)` block; `FX.MOBILE` reduces particles.
 - **Sound must never autoplay.** It is opt-in only.
 
@@ -180,5 +179,4 @@ The countdown targets Lagan Sagai (2 Feb, 5 PM) until the wedding time is known.
 - **The film must be deterministic.** It uses seeded `Math.random`, fixed-step simulation, `tl.seek`, and `document.getAnimations()` pinned to `t`. CSS transitions are disabled in film mode. Lantern glow uses `filter: opacity()` because the CSS flicker animation owns `opacity`.
 - **Video encoding:** JPEG frames are full-range; the exporter converts to `yuv420p` (tv range) and boosts audio by 1.8× for WhatsApp compatibility.
 - **Background browser tabs pause `requestAnimationFrame`,** so GSAP timelines appear stuck when testing in a hidden pane. That is the cause, not a bug.
-- **Ritual figures are drawn facing right;** the bride is mirrored through her `scale(face)`. Arm rotations are set as SVG `transform` attributes inside shoulder-translated groups, not with GSAP `svgOrigin`, because the figures themselves move.
 - **Reduced motion:** `html.rm` (set in `<head>`) skips pins and particles and shows final states. CSS defaults are the final visible state; JS sets the hidden starting states.

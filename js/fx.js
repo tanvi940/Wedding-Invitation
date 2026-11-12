@@ -281,7 +281,7 @@
         const dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
         if (d2 < 7000) { const d = Math.sqrt(d2) || 1, f = ((7000 - d2) / 7000) * 3.2; p.vx += (dx / d) * f; p.vy += (dy / d) * f; }
         p.vx *= 0.82; p.vy *= 0.82; p.x += p.vx * k; p.y += p.vy * k;
-        const a = 0.55 + 0.45 * Math.sin(t * 3 + p.ph);
+        const a = (0.55 + 0.45 * Math.sin(t * 3 + p.ph)) * (this.dim == null ? 1 : this.dim);
         if (p.g) glow(ctx, p.x, p.y, 6, a * 0.8);
         else { ctx.globalAlpha = a; ctx.fillStyle = p.col; ctx.fillRect(p.x, p.y, p.s, p.s); }
       }

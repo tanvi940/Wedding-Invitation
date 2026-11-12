@@ -26,8 +26,9 @@
   .hosts{position:relative;font-family:Cinzel,serif;font-size:30px;letter-spacing:.08em;color:var(--ivory);margin-top:8px}
   .line{position:relative;font-style:italic;font-size:28px;color:rgba(251,243,228,.8);margin-top:2px}
   .son{position:relative;font-style:italic;font-size:26px;color:rgba(251,243,228,.8);margin-top:-6px}
-  .names em{font-size:.55em}
-  .names{position:relative;font-family:"Great Vibes",cursive;font-size:100px;line-height:1.1;margin-top:2px;background:linear-gradient(100deg,#b8892c,#fff1c1 35%,#d4af37 55%,#f5d77a 80%,#a87b25);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .names{position:relative;display:flex;align-items:center;justify-content:center;gap:34px;margin:6px 0 4px}
+  .nm{font-family:"Great Vibes",cursive;font-size:112px;line-height:1.15;padding:0 .12em;letter-spacing:.01em;background:linear-gradient(100deg,#c99a3a,#fff1c1 35%,#e3bd52 55%,#f5d77a 80%,#c19032);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 6px rgba(0,0,0,.55))}
+  .nm-with{font-family:Cinzel,serif;font-size:22px;letter-spacing:.34em;color:var(--gold);padding:10px 0;border-top:1px solid rgba(212,175,55,.6);border-bottom:1px solid rgba(212,175,55,.6)}
   .date{position:relative;font-family:Cinzel,serif;font-size:34px;letter-spacing:.14em;margin-top:8px}
   .venue{position:relative;font-family:Cinzel,serif;font-size:22px;letter-spacing:.3em;color:var(--gold);margin-top:10px;text-transform:uppercase}
   .qr-row{position:relative;display:flex;align-items:center;gap:44px;margin-top:26px;text-align:left}
@@ -52,7 +53,7 @@
   <p class="dear">Dear Family &amp; Friends,</p>
   <p class="hosts" data-w="hosts"></p>
   <p class="line">cordially invite you to the wedding of their daughter</p>
-  <p class="names"><span data-w="bride"></span> <em>with</em> <span data-w="groom"></span></p>
+  <p class="names"><span class="nm" data-w="bride"></span><span class="nm-with">with</span><span class="nm" data-w="groom"></span></p>
   <p class="son">son of <span data-w="groomParents"></span></p>
   <p class="date" data-w="dateLong"></p>
   <p class="venue" data-w="venue"></p>

@@ -69,7 +69,7 @@
     <li><a href="#arrival" data-link><span>I</span>The Arrival</a></li>
     <li><a href="#invitation" data-link><span>II</span>Invitation</a></li>
     <li><a href="#events" data-link><span>III</span>Celebrations</a></li>
-    <li><a href="#rituals" data-link><span>IV</span>The Rituals</a></li>
+    <li><a href="#venue" data-link><span>IV</span>The Venue</a></li>
     <li><a href="#countdown" data-link><span>V</span>Countdown</a></li>
   </ul>
 </nav>
@@ -107,7 +107,7 @@
     </figure>
     <h2 class="couple-names">
       <span class="cn cn-bride gold-text" data-w="bride"></span>
-      <span class="cn-amp">&amp;</span>
+      <span class="cn-amp">WITH</span>
       <span class="cn cn-groom gold-text" data-w="groom"></span>
     </h2>
     <p class="couple-line">request the honour of your presence</p>
@@ -127,7 +127,7 @@
         <div class="ic-mono" data-emblem="card"></div>
         <p class="ic-hosts ic-stagger" data-w="hosts"></p>
         <p class="ic-small ic-stagger">request the pleasure of your company at the wedding of their daughter</p>
-        <h3 class="ic-names"><span data-w="bride"></span><em>with</em><span data-w="groom"></span></h3>
+        <h3 class="ic-names"><span class="nm" data-w="bride"></span><span class="nm-with">with</span><span class="nm" data-w="groom"></span></h3>
         <p class="ic-small ic-stagger">son of <span data-w="groomParents"></span></p>
         <p class="ic-date ic-stagger" data-w="dateLong"></p>
         <p class="ic-venue ic-stagger" data-w="venue"></p>
@@ -189,20 +189,31 @@
     <div class="valance" aria-hidden="true"></div>
   </section></section>
 
-<!-- ============ RITUALS (animated couple) ============ -->
-<section id="rituals" class="rituals" aria-label="The wedding rituals">
-  <canvas id="ritual-canvas" aria-hidden="true"></canvas>
-  <div class="rit-head">
-    <p class="eyebrow">The Sacred Rituals</p>
-    <div class="rit-caption" aria-live="polite">
-      <p class="rit-step">Ritual <span class="rit-n">1</span> of 6</p>
-      <h2 class="rit-title">Varmala</h2>
-      <p class="rit-text">The garland exchange — a joyful acceptance of each other.</p>
-      <p class="rit-phera" aria-hidden="true">Phera <span>1</span> of 7</p>
+<!-- ============ VENUE (Google Map) ============ -->
+<section id="venue" class="venue" aria-label="Venue and directions">
+  <header class="sec-head">
+    <p class="eyebrow">Find Your Way</p>
+    <h2 class="sec-title" data-split="rise">The Venue</h2>
+    <p class="sec-sub">Where two families become one — we'll be waiting for you here.</p>
+  </header>
+  <div class="venue-card">
+    <svg class="card-border" aria-hidden="true"><rect class="o" pathLength="1"/><rect class="i" pathLength="1"/></svg>
+    <div class="map-frame">
+      <iframe class="map" title="Map to the wedding venue" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen data-map></iframe>
+      <span class="map-corner tl"></span><span class="map-corner tr"></span><span class="map-corner bl"></span><span class="map-corner br"></span>
+    </div>
+    <div class="venue-info">
+      <svg class="venue-pin" viewBox="0 0 48 64" aria-hidden="true"><path d="M24 2C12 2 3 11 3 23c0 16 21 37 21 37s21-21 21-37C45 11 36 2 24 2z" fill="url(#gold-grad)"/><circle cx="24" cy="23" r="8" fill="#3a0d16"/></svg>
+      <p class="venue-for" data-venue-events></p>
+      <h3 class="venue-name" data-w="venueName"></h3>
+      <p class="venue-addr" data-w="venueArea"></p>
+      <p class="venue-when" data-venue-dates></p>
+      <div class="venue-btns">
+        <a class="btn-royal magnetic" data-directions target="_blank" rel="noopener"><span>Get Directions</span></a>
+        <a class="btn-ghost" data-openmap target="_blank" rel="noopener">Open in Google Maps</a>
+      </div>
     </div>
   </div>
-  <div class="rit-stage" data-rituals></div>
-  <ol class="rit-dots" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li></ol>
 </section>
 
 <!-- ============ RINGS ============ -->
@@ -241,9 +252,9 @@
   <canvas id="finale-fw" aria-hidden="true"></canvas>
   <canvas id="finale-petals" aria-hidden="true"></canvas>
   <canvas id="finale-canvas" aria-hidden="true"></canvas>
+  <h2 class="finale-names gold-text"><span data-w="bride"></span> &amp; <span data-w="groom"></span></h2>
   <div class="finale-copy">
     <p class="eyebrow">And so, forever begins</p>
-    <h2 class="finale-names gold-text"><span data-w="bride"></span> &amp; <span data-w="groom"></span></h2>
     <p class="finale-date" data-w="dateLong"></p>
     <p class="finale-line">We can't wait to welcome you.</p>
     <p class="finale-from">With love, <span data-w="hosts"></span> &amp; family</p>
@@ -266,7 +277,6 @@
 <script src="js/fx.js"></script>
 <script src="js/build.js"></script>
 <script src="js/intro.js"></script>
-<script src="js/rituals.js"></script>
 <script src="js/scenes.js"></script>
 <script src="js/main.js"></script>
 </body>

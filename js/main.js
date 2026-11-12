@@ -18,6 +18,7 @@
     gsap.ticker.add(t => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
     lenis.stop();
+    window.__lenis = lenis; // handy for debugging / automated checks
   }
 
   FX.initGlobal();
