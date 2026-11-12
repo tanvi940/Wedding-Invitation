@@ -129,7 +129,7 @@ Sound cues are in `FILM.cues`.
 |---|---|
 | Couple | Riya & Sagar. Initials R & S (derived). |
 | Bride's parents | Rajendra & Sunita (surname not given) |
-| Groom's parents | Kaushal Verma & Pooja Verma |
+| Groom's parents | Om Prakash Verma & Pooja Verma |
 | Haldi | 31 Jan 2027, 12:00 PM onwards, at the family residence |
 | Mehendi & Sangeet (combined) | 31 Jan 2027, 7:00 PM onwards, at residence |
 | Chaak Bhaat | 1 Feb 2027, time not given, at residence |
@@ -156,7 +156,8 @@ The countdown targets the wedding (2 Feb, 8 PM).
 - **The RSVP section ("Will You Join Us?") was removed** entirely. `scenes.js` `rsvp()` safely no-ops; leftover RSVP CSS is harmless.
 - **No personalisation and no guest list.** One common video and one common card for everyone (an earlier per-guest `?to=Name` version was intentionally removed).
 - **Names must be clearly visible, never cramped:** bride and groom are separate script words with a small spaced Cinzel "WITH" between them (classes `nm` / `nm-with` / `cn-amp`), on the cards, the couple reveal and the finale (crisp DOM names fade in over the particle names).
-- **The invitation is from the BRIDE'S family.** Hosts = `hosts` in config (Shri Rajendra & Smt. Sunita); wording is "…invite you to the wedding of their daughter Riya with Sagar, son of `groomParents`…" on the website intro, envelope card, finale, video closing card and QR card. "Our residence" = the bride's home.
+- **The invitation is from the BRIDE'S family.** Hosts = `hosts` in config (Sh. Rajendra & Smt. Sunita); wording is "…invite you to the wedding of their daughter Riya with Sagar, son of `groomParents`…" on the website intro, envelope card, finale, video closing card and QR card. "Our residence" = the bride's home.
+- **Titles are Sh. / Smt.** (client switched back from Mr./Mrs. on 12 Nov 2026). Groom's father is **Om Prakash Verma**.
 - **Delivered on WhatsApp as a video plus a QR card, not as a link.**
 - **Must fit every phone.** Checked at 320x568, 360x740, 390x844, 430x932, 768x1024 and 844x390 landscape: no horizontal overflow, pinned scenes fit one screen. Rules live in the "SMALL & SHORT SCREENS" block near the end of `style.css` (compact wedding card for `max-height:760px`, wide envelope card for landscape phones).
 - **Phone-friendly details:** Mobile tweaks live in the `@media (max-width:768px)` block; `FX.MOBILE` reduces particles.

@@ -25,9 +25,9 @@ window.WEDDING = {
       link: "https://maps.app.goo.gl/nMGBmLycufdgMkjp6" }
   ],
   // The invitation is sent by the BRIDE'S family (hosts). "Our residence" = the bride's home.
-  hosts: "Mr. Rajendra & Mrs. Sunita",                       // bride's parents (surname still to confirm)
-  groomParents: "Mr. Kaushal Verma & Mrs. Pooja Verma",
-  families: "With the blessings of Mr. Rajendra & Mrs. Sunita and Mr. Kaushal Verma & Mrs. Pooja Verma",
+  hosts: "Sh. Rajendra & Smt. Sunita",                       // bride's parents (surname still to confirm)
+  groomParents: "Sh. Om Prakash Verma & Smt. Pooja Verma",
+  families: "With the blessings of Sh. Rajendra & Smt. Sunita and Sh. Om Prakash Verma & Smt. Pooja Verma",
   hashtag: "",
   // Background song: put the file in /music and set its path here (e.g. "music/song.mp3").
   // Empty = the built-in sitar-style music. Used by the website and the WhatsApp video.

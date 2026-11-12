@@ -20,7 +20,7 @@ python tools/make_invite.py               # re-render exports/wedding-invite.mp4
 5. Add any new client decision to `README.md` under "Decisions already made by the client".
 
 ## Client decisions: do not undo
-- From the bride's family: hosts "Mr. Rajendra & Mrs. Sunita"; "son of Mr. Kaushal Verma & Mrs. Pooja Verma". Use **Mr./Mrs.**, never Shri/Smt.
+- From the bride's family: hosts "Sh. Rajendra & Smt. Sunita"; "son of Sh. Om Prakash Verma & Smt. Pooja Verma". Use **Sh./Smt.**, never Mr./Mrs. (client switched back on 12 Nov 2026).
 - Dates use ordinals: 31st, 1st, 2nd (`ord()` in `js/build.js`).
 - Names: "Galaxy Vega **Apartment**" (no s), "Khalsa **Garden**" (no s), house area written as **Nawada** (not Uttam Nagar). The map `query` fields keep the exact Google addresses.
 - Ceremonies: Haldi, Mehendi & Sangeet, Chaak Bhaat (house); Lagan Sagai 5 PM and Wedding **8 PM** (hall). No Reception, no RSVP.
