@@ -6,16 +6,20 @@
   const { fit, glow, drawPetal, petal, stepPetal, sample, split, PAL, pick, rand } = FX;
   const W = window.WEDDING;
   const $ = s => document.querySelector(s), $$ = s => Array.from(document.querySelectorAll(s));
-  // rituals play from RS for 19.4 s of ritual time at speed RX; the closing card is pushed back by E
-  const RS = 28.8, RX = 1.35, E = 14.8;
+  // Client asked to keep the rituals OUT of the video (website only). Set true to put them back:
+  // they then play from RS for 19.4 s of ritual time at speed RX, and the closing card shifts by E.
+  const WITH_RITUALS = false;
+  const RS = 28.8, RX = 1.35, E = WITH_RITUALS ? 14.8 : 0;
   const DURATION = 35 + E, STEP = 1 / 60;
   const RIT_STEPS = [0, 4, 6, 11.6, 14, 16.2];
 
   window.FILM = {
     duration: DURATION,
-    cues: {
+    cues: WITH_RITUALS ? {
       bells: [6.1, 24.7, RS + 16.2 / RX], doors: [9.2], whoosh: [[10.2, 2.4], [21, 1.8], [RS - 0.6, 1.4], [28.4 + E, 1.4]],
       chime: [23.4, ...RIT_STEPS.slice(1).map(t => +(RS + t / RX).toFixed(2)), 29.2 + E, 31.5 + E], engine: [15.8, 20.3, 21.3]
+    } : {
+      bells: [6.1, 24.7], doors: [9.2], whoosh: [[10.2, 2.4], [21, 1.8]], chime: [23.4, 29.2, 31.5], engine: [15.8, 20.3, 21.3]
     },
     ready: false
   };
@@ -68,7 +72,7 @@
     const kick = split($('.intro-kicker')), title = split($('.intro-title'));
 
     /* ---------- master timeline ---------- */
-    const rit = window.Rituals ? Rituals.init({ film: true }) : null;
+    const rit = WITH_RITUALS && window.Rituals ? Rituals.init({ film: true }) : null;
     const tl = gsap.timeline({ paused: true });
     tl.to(L, { r: Math.min(w, h) * 0.05, a: 1, duration: 1.2, ease: 'power2.out' }, 0)
       .to(L, { a: 0, r: Math.min(w, h) * 0.16, duration: 1.5, ease: 'power2.out' }, 1.2)
@@ -127,7 +131,7 @@
       .to('.cn-groom', { clipPath: 'inset(-40% -10% -40% -10%)', duration: 1, ease: 'power1.inOut' }, 25.6)
       .fromTo(['.couple-line', '.couple-date'], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.15 }, 26.4)
       // the couple performs the six rituals
-      .to('#rituals', { opacity: 1, duration: 0.7 }, RS - 0.7);
+      .to('#rituals', { opacity: WITH_RITUALS ? 1 : 0, duration: 0.7 }, RS - 0.7);
     if (rit) tl.add(rit.tl.timeScale(RX).paused(false), RS);
     tl
       // closing card

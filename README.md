@@ -5,7 +5,7 @@ An animation-rich, cinematic **royal Indian wedding invitation**, delivered in t
 | Deliverable | File | What it is |
 |---|---|---|
 | Interactive website | `index.html` | Scroll-driven "royal wedding film": palace doors, vintage car arrival, envelope, 5 ceremony scenes, an animated couple performing 6 rituals, rings, countdown, finale |
-| WhatsApp video | `exports/wedding-invite.mp4` | 50-second portrait (720×1280) film with synthesized sound, rendered frame-by-frame from `film.html` |
+| WhatsApp video | `exports/wedding-invite.mp4` | 35-second portrait (720×1280) film with synthesized sound, rendered frame-by-frame from `film.html` |
 | WhatsApp QR card | `exports/wedding-card.png` | 1080×1350 gold card; its QR opens the website |
 
 Guests receive **the video + the card on WhatsApp — never a text link**. They scan the card's QR to open the full website.
@@ -80,7 +80,7 @@ js/scenes.js        Every ScrollTrigger scene + micro-interactions (tilt, magnet
 js/main.js          Bootstrap: Build → Lenis → FX → Scenes → Intro; scroll unlock after intro.
 js/film.js          Deterministic film timeline. window.renderFrame(t) seeks the GSAP timeline,
                     steps particles at a fixed 60 Hz, pins CSS animations to t, then draws.
-tools/make_invite.py  Playwright + ffmpeg: renders soundtrack, about 1500 JPEG frames → H.264 MP4
+tools/make_invite.py  Playwright + ffmpeg: renders soundtrack, 1050 JPEG frames → H.264 MP4
                     (yuv420p, AAC), and screenshots the card → exports/.
 exports/            Last rendered video + card (placeholder content).
 Wedding-Details-Needed-v2.docx  Checklist the couple fills in (names, ceremonies, style,
@@ -107,7 +107,7 @@ Wedding-Details-Needed-v2.docx  Checklist the couple fills in (names, ceremonies
 
 Global layers: a custom cursor and gold dust (desktop only), ambient floating petals, an animated menu, a floating sound button.
 
-## Video timeline (`js/film.js`, 49.8 s @ 30 fps)
+## Video timeline (`js/film.js`, 35 s @ 30 fps)
 
 | Time | What happens |
 |---|---|
@@ -119,10 +119,9 @@ Global layers: a custom cursor and gold dust (desktop only), ambient floating pe
 | 16–20.4 s | Car drive-in |
 | 21–23 s | Zoom to car; door opens |
 | 23.5–27 s | Couple reveal and names |
-| 28.1–43.2 s | The Rituals: the same js/rituals.js scene (`Rituals.init({film:true})` returns a paused timeline) nested at `RS`=28.8 s with `timeScale` `RX`=1.35. Varmala, Gathbandhan, Saat Phere, Sindoor, Mangalsutra, Ashirwad. |
-| 43.4–49.8 s | Closing card: "Dear Family & Friends", date, venue, 5 ceremonies, "Scan your invitation card…" |
+| 28.6–35 s | Closing card: "Dear Family & Friends", date, venue, 5 ceremonies, "Scan your invitation card…" |
 
-Sound cues are in `FILM.cues` (a chime on each ritual). To change the ritual length, edit `RS`/`RX`/`E` at the top of `film.js`; everything after the rituals is shifted by `E`.
+Sound cues are in `FILM.cues`. **The rituals are intentionally NOT in the video** (client request, website only). `WITH_RITUALS` at the top of `film.js` switches them back in (adds 14.8 s; `Rituals.init({film:true})` returns a paused timeline that the film nests at `RS` with `timeScale` `RX`).
 
 ---
 
@@ -154,6 +153,7 @@ The countdown targets Lagan Sagai (2 Feb, 5 PM) until the wedding time is known.
 - **The RSVP section ("Will You Join Us?") was removed** entirely. `scenes.js` `rsvp()` safely no-ops; leftover RSVP CSS is harmless.
 - **No personalisation and no guest list.** One common video and one common card for everyone (an earlier per-guest `?to=Name` version was intentionally removed).
 - **Delivered on WhatsApp as a video plus a QR card, not as a link.**
+- **The ritual animation stays on the website only, not in the video.**
 - **Must be phone-friendly.** Mobile tweaks live in the `@media (max-width:768px)` block; `FX.MOBILE` reduces particles.
 - **Sound must never autoplay.** It is opt-in only.
 
