@@ -170,7 +170,7 @@ The countdown targets the wedding (2 Feb, 8 PM).
    - Chaak Bhaat time
    - Bride's family surname, for the family blessing line
    - Optional: dress codes, hashtag, colour theme, Hindi names, music feel
-2. **Hosting:** deploy the folder as a static site (Netlify, Vercel or GitHub Pages all work; no build needed). Then set `siteURL` in `js/config.js` and re-run `tools/make_invite.py` so the QR works. **Live at https://riya-weds-sagar.onrender.com** (Render static site from tanvi940/Wedding-Invitation; auto-deploys on push). The QR on the card points there.
+2. **Hosting:** deploy the folder as a static site (Netlify, Vercel or GitHub Pages all work; no build needed). Then set `siteURL` in `js/config.js` and re-run `tools/make_invite.py` so the QR works. **Live at https://riya-weds-sagar.onrender.com** (Render static site from tanvi940/Wedding-Invitation; auto-deploys on push). The QR on the card points there. Also deployed to Netlify at https://riya-weds-sagar.netlify.app (project `riya-weds-sagar`, `netlify.toml`; manual deploy via `netlify deploy --prod` from a copy without the docx/README/tools).
 3. **Optional, not started:**
    - Add a "long-press the card → Scan QR" hint, because guests view the card on the same phone they would scan with.
    - Add Hindi (Devanagari) names.
