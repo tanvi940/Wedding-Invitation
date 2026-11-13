@@ -157,8 +157,14 @@ window.Intro = (function () {
       return;
     }
     unhook = add(frame);
-    const fontsReady = document.fonts ? Promise.race([document.fonts.load('600 50px Cinzel'), new Promise(r => setTimeout(r, 1800))]) : Promise.resolve();
-    fontsReady.then(play);
+    // Start only once the page has settled, so a busy phone doesn't skip the light + golden sparkle:
+    // fonts loaded (max 1.8 s), page loaded (max 4 s), tab actually visible, then two clean frames.
+    const wait = (p, ms) => Promise.race([p, new Promise(r => setTimeout(r, ms))]);
+    const fontsReady = document.fonts ? wait(document.fonts.load('600 50px Cinzel'), 1800) : Promise.resolve();
+    const loaded = document.readyState === 'complete' ? Promise.resolve() : wait(new Promise(r => addEventListener('load', r, { once: true })), 4000);
+    const visible = () => new Promise(r => { if (!document.hidden) return r(); const f = () => { if (!document.hidden) { document.removeEventListener('visibilitychange', f); r(); } }; document.addEventListener('visibilitychange', f); });
+    const twoFrames = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    Promise.all([fontsReady, loaded]).then(visible).then(twoFrames).then(() => { if (!opened) play(); });
   }
 
   return { init };

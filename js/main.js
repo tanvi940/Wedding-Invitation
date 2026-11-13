@@ -11,12 +11,15 @@
   Build.build();
   Build.sizeBorders();
 
+  // During the intro a stalled frame (slow phone still loading) must not let the timeline
+  // jump ahead past the light + golden sparkle; Lenis gets lagSmoothing(0) once the site starts.
+  gsap.ticker.lagSmoothing(100, 33);
+
   let lenis = null;
   if (!RM && window.Lenis) {
     lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(t => lenis.raf(t * 1000));
-    gsap.ticker.lagSmoothing(0);
     lenis.stop();
     window.__lenis = lenis; // handy for debugging / automated checks
   }
@@ -40,6 +43,7 @@
   }
 
   function start() {
+    if (lenis) gsap.ticker.lagSmoothing(0);
     toTop();
     FX.global.ambient = true;
     gsap.to(['#nav', '#music-btn'], { autoAlpha: 1, duration: 1.2, delay: 1.2, stagger: 0.15 });
