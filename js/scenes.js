@@ -4,6 +4,7 @@
 window.Scenes = (function () {
   const { RM, MOBILE, rand, pick, PAL, fit, drawPetal, petal, stepPetal, split, add } = FX;
   const W = window.WEDDING;
+  const LITE = document.documentElement.classList.contains('lite'); // phones: no animated blur filters
   const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
   const vw = () => innerWidth, vh = () => innerHeight;
   const Audio = () => window.RoyalAudio || { enabled: false };
@@ -18,7 +19,7 @@ window.Scenes = (function () {
       const st = { trigger: el, start: 'top 86%', once: true };
       const v = {
         rise: () => gsap.from(chars, { yPercent: 120, rotationX: -90, opacity: 0, transformOrigin: '50% 100%', duration: 1.1, ease: 'power4.out', stagger: 0.035, scrollTrigger: st }),
-        blur: () => gsap.from(chars, { opacity: 0, filter: 'blur(14px)', scale: 1.7, duration: 1.4, ease: 'power3.out', stagger: { each: 0.06, from: 'random' }, scrollTrigger: st, clearProps: 'filter' }),
+        blur: () => gsap.from(chars, { opacity: 0, filter: LITE ? 'none' : 'blur(14px)', scale: 1.7, duration: 1.4, ease: 'power3.out', stagger: { each: 0.06, from: 'random' }, scrollTrigger: st, clearProps: 'filter' }),
         wave: () => gsap.from(chars, { y: 80, rotation: 14, opacity: 0, duration: 1.2, ease: 'back.out(1.7)', stagger: { each: 0.045, from: 'center' }, scrollTrigger: st }),
         flip: () => gsap.from(chars, { rotationY: 95, opacity: 0, x: -24, transformOrigin: '0% 50%', duration: 1, ease: 'power3.out', stagger: 0.05, scrollTrigger: st }),
         drop: () => gsap.from(chars, { y: -140, opacity: 0, rotation: () => gsap.utils.random(-35, 35), duration: 1.3, ease: 'bounce.out', stagger: 0.04, scrollTrigger: st })
@@ -39,7 +40,7 @@ window.Scenes = (function () {
       hint = $('.arrival-hint'), pl = $('.pillar-l'), pr = $('.pillar-r'), arch = $('.fg-arch');
     const cw = () => car.offsetWidth, ch = () => car.offsetHeight;
     const startX = () => -cw() * 1.1, endX = () => (vw() - cw()) / 2 + cw() * 0.04;
-    const spin = () => ((endX() - startX()) / (2 * Math.PI * (cw() * 44 / 640))) * 360;
+    const spin = () => cw() ? ((endX() - startX()) / (2 * Math.PI * (cw() * 44 / 640))) * 360 : 0; // 0 while the car has no width yet (was NaN → console errors every frame)
     const doorPt = () => ({ x: endX() + cw() * 232 / 640, y: car.offsetTop + ch() * 107 / 240 });
     const panEnd = () => -(pan.offsetWidth - vw()) / 2;
 
@@ -60,7 +61,7 @@ window.Scenes = (function () {
     // (GSAP's svgOrigin got recalculated on refresh and sent the tyres flying across the screen.)
     const rig = { spin: 0, door: 1, tilt: 0 };
     const paint = () => {
-      wheels.forEach(wh => wh.setAttribute('transform', `rotate(${rig.spin} ${wh.dataset.o})`));
+      wheels.forEach(wh => wh.setAttribute('transform', `rotate(${rig.spin || 0} ${wh.dataset.o})`));
       door.setAttribute('transform', `translate(198 0) scale(${rig.door} 1) translate(-198 0)`);
       chassis.setAttribute('transform', `rotate(${rig.tilt} 320 192)`);
     };
@@ -107,6 +108,8 @@ window.Scenes = (function () {
     if (RM) { cb && cb(); return; }
     const pan = $('.pan');
     const wins = $$('.palace .win').map(w => { const b = w.getBBox(); return { w, d: Math.abs(b.x + b.width / 2 - 1200) + Math.abs(b.y - 600) * 0.4 }; }).sort((a, b) => a.d - b.d).map(o => o.w);
+    const glowG = $('.palace .wins'), glowF = glowG && glowG.getAttribute('filter');
+    if (LITE && glowF) glowG.removeAttribute('filter');
     const t = gsap.timeline();
     t.to(pan, { x: () => -(pan.offsetWidth - vw()) / 2, scale: 1, duration: 5.5, ease: 'power2.inOut' }, 0)
       .from('.sky', { filter: 'brightness(.3)', duration: 3, ease: 'power1.out', clearProps: 'filter' }, 0)
@@ -117,6 +120,7 @@ window.Scenes = (function () {
       .add(() => { AFX.petals = true; }, 3.2)
       .to('.arrival-hint', { opacity: 1, duration: 1 }, 4)
       .add(() => cb && cb(), 3.6);
+    if (LITE) { if (glowF) t.add(() => glowG.setAttribute('filter', glowF), 5.6); return; }
     // occasional window flicker for life
     gsap.delayedCall(7, function flick() {
       const w = pick(wins); gsap.fromTo(w, { opacity: 0.4 }, { opacity: 1, duration: 0.12, repeat: 3, yoyo: true, ease: 'steps(1)' });
@@ -282,7 +286,7 @@ window.Scenes = (function () {
     gsap.to('.beam', { opacity: 1, duration: 1, stagger: 0.2, scrollTrigger: { trigger: sang, start: 'top 60%' } });
     $$('.beam').forEach((b, i) => gsap.fromTo(b, { rotation: i % 2 ? -24 : 24 }, { rotation: i % 2 ? 18 : -18, duration: rand(2.6, 4), repeat: -1, yoyo: true, ease: 'sine.inOut' }));
     gsap.from('.spotlight', { opacity: 0, scale: 0.3, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: sang, start: 'top 50%' } });
-    gsap.from('#sangeet .ev-inner', { scale: 0.6, opacity: 0, filter: 'blur(20px)', duration: 1.4, ease: 'expo.out', clearProps: 'filter', scrollTrigger: { trigger: sang, start: 'top 50%' } });
+    gsap.from('#sangeet .ev-inner', { scale: 0.6, opacity: 0, filter: LITE ? 'none' : 'blur(20px)', duration: 1.4, ease: 'expo.out', clearProps: 'filter', scrollTrigger: { trigger: sang, start: 'top 50%' } });
     // neon flicker — even repeat count + explicit end so the title always ends fully visible
     gsap.fromTo('#sangeet .ec-title', { opacity: 0 }, { opacity: 1, duration: 0.07, repeat: 6, yoyo: true, ease: 'steps(1)', immediateRender: false, scrollTrigger: { trigger: sang, start: 'top 40%' }, onComplete: () => gsap.set('#sangeet .ec-title', { opacity: 1 }) });
 

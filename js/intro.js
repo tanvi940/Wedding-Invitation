@@ -4,6 +4,7 @@
 window.Intro = (function () {
   const { RM, MOBILE, rand, pick, PAL, fit, glow, drawPetal, sample, split, add } = FX;
   const W = window.WEDDING;
+  const LITE = document.documentElement.classList.contains('lite'); // phones: skip animated CSS filters
   const $ = s => document.querySelector(s);
   let c, ctx, w, h, parts = [], petals = [], mode = 'light', light = { r: 0, a: 0 }, state = { formK: 0 };
   let opened = false, onDone = null, soundPref = true, live = true, unhook = null, tl = null;
@@ -24,7 +25,7 @@ window.Intro = (function () {
   }
 
   function spawn() {
-    const N = MOBILE ? 520 : 1100;
+    const N = LITE ? 360 : MOBILE ? 520 : 1100;
     for (let i = 0; i < N; i++) {
       const a = rand(0, Math.PI * 2), sp = Math.pow(Math.random(), 0.6) * rand(2, 9);
       parts.push({ x: w / 2, y: h / 2, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, r: rand(1.2, 3.2), a: 0, tx: null, ty: null, k: rand(0.5, 1.5), ph: rand(0, 6.28), fade: 1 });
@@ -84,7 +85,7 @@ window.Intro = (function () {
     const k = split($('.intro-kicker')), ti = split($('.intro-title'));
     t2.set('.intro-copy', { opacity: 1 })
       .from(k, { opacity: 0, duration: 0.05, stagger: 0.03, ease: 'none' })
-      .from(ti, { opacity: 0, y: 24, scale: 1.4, filter: 'blur(10px)', duration: 0.9, stagger: 0.07, ease: 'power3.out' }, '-=.3')
+      .from(ti, Object.assign({ opacity: 0, y: 24, scale: 1.4, duration: 0.9, stagger: 0.07, ease: 'power3.out' }, LITE ? {} : { filter: 'blur(10px)' }), '-=.3')
       .from('.intro-sub', { opacity: 0, y: 14, duration: 1 }, '-=.5')
       .from('.intro-actions > *', { opacity: 0, y: 20, scale: 0.9, duration: 0.8, stagger: 0.15, ease: 'back.out(1.7)' }, '-=.5');
     return t2;
@@ -92,7 +93,7 @@ window.Intro = (function () {
 
   function play() {
     gsap.set('.intro-copy', { opacity: 0 });
-    gsap.set('.doors', { opacity: 0, scale: 1.08, filter: 'brightness(0)' });
+    gsap.set('.doors', LITE ? { opacity: 0, scale: 1.08 } : { opacity: 0, scale: 1.08, filter: 'brightness(0)' });
     tl = gsap.timeline({ delay: 0.35 });
     tl.to(light, { r: Math.min(w, h) * 0.05, a: 1, duration: 1.3, ease: 'power2.out' })
       .add(() => { mode = 'spread'; spawn(); })
@@ -102,7 +103,7 @@ window.Intro = (function () {
       .add(() => { mode = 'release'; }, '+=0.25')
       .to('.emblem-wrap', { opacity: 1, duration: 0.6, ease: 'power1.out' }, '<')
       .to('.emblem-wrap', { y: crestDY, scale: crestScale, duration: 1.6, ease: 'power3.inOut' }, '+=.35')
-      .to('.doors', { opacity: 1, scale: 1, filter: 'brightness(1)', duration: 2.1, ease: 'power2.out', onComplete: () => gsap.set('.doors', { clearProps: 'filter' }) }, '<')
+      .to('.doors', LITE ? { opacity: 1, scale: 1, duration: 2.1, ease: 'power2.out' } : { opacity: 1, scale: 1, filter: 'brightness(1)', duration: 2.1, ease: 'power2.out', onComplete: () => gsap.set('.doors', { clearProps: 'filter' }) }, '<')
       .to('.intro-floor', { opacity: 1, duration: 2 }, '<')
       .to('.door-gap', { opacity: 1, duration: 1.2 }, '-=1')
       .to('.light-spill', { opacity: 0.7, duration: 1.4 }, '<')
@@ -117,6 +118,7 @@ window.Intro = (function () {
       setTimeout(() => RoyalAudio.doors(), 450); setTimeout(() => RoyalAudio.whoosh(2.4), 1900);
     } else document.dispatchEvent(new CustomEvent('royal:sound', { detail: false }));
     if (RM) { gsap.to('#intro', { opacity: 0, duration: 0.6, onComplete: destroy }); onDone && onDone(); return; }
+    if (LITE) gsap.set('.intro-stage', { willChange: 'transform' });
     const t3 = gsap.timeline();
     t3.to('.intro-copy', { opacity: 0, scale: 0.94, y: 20, duration: 0.7, ease: 'power2.in' })
       .to('.emblem-wrap', { opacity: 0, y: '-=30', duration: 0.6 }, '<')

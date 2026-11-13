@@ -659,4 +659,13 @@ a{color:inherit}
 .rm .inf-path{stroke-dashoffset:0}
 .rm .gal-track{overflow-x:auto;width:auto;max-width:100vw;padding-left:16px;scroll-snap-type:x mandatory}
 .rm .gal-item{scroll-snap-align:center}
+/* PHONES (.lite is set in index.html only; film.html keeps the full look).
+   Blur filters, backdrop blurs and the endless text shimmer repaint every frame and made scrolling stutter. */
+.lite .gold-text{animation:none;background-position:-40% 0}
+.lite .menu-btn{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(10,4,6,.82)}
+.lite .music-btn{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(10,4,6,.85)}
+.lite .cd-unit{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(20,8,12,.85)}
+.lite .rings-stage{filter:none}
+.lite .headbeam{filter:none}
+.lite .emblem-wrap{will-change:transform,opacity}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
