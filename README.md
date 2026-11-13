@@ -162,6 +162,7 @@ The countdown targets the wedding (2 Feb, 8 PM).
 - **Must fit every phone.** Checked at 320x568, 360x740, 390x844, 430x932, 768x1024 and 844x390 landscape: no horizontal overflow, pinned scenes fit one screen. Rules live in the "SMALL & SHORT SCREENS" block near the end of `style.css` (compact wedding card for `max-height:760px`, wide envelope card for landscape phones).
 - **Phone-friendly details:** Mobile tweaks live in the `@media (max-width:768px)` block; `FX.MOBILE` reduces particles.
 - **Sound must never autoplay.** It is opt-in only.
+- **The website opens with the golden sparkle** (13 Nov 2026): point of light → golden dust forms the R & S crest → crest rises onto the palace doors → invitation text and "Open Invitation". It must never start on the text or on the crest already glowing, even on slow phones (see CLAUDE.md, Gotchas).
 - **No bells or chimes ("ting ting") anywhere** (website or video). `RoyalAudio.allowBells = false` in `audio.js` silences them all; the video's `FILM.cues` also has empty `bells`/`chime`.
 
 ## Still to do (waiting on the client)
