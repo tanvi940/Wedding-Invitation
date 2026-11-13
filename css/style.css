@@ -93,6 +93,7 @@ a{color:inherit}
 .emblem-wrap{--es:min(46vw,240px);position:absolute;left:50%;top:50%;width:var(--es);height:var(--es);margin:calc(var(--es) / -2) 0 0 calc(var(--es) / -2);opacity:0;z-index:6;filter:drop-shadow(0 0 16px rgba(245,215,122,.55))}
 .emblem-wrap svg,[data-emblem] svg{width:100%;height:100%}
 .intro-copy{--cw:min(90vw,500px);position:absolute;left:50%;bottom:calc(9vh + min(70vh,700px) * .1);width:var(--cw);margin-left:calc(var(--cw) / -2);text-align:center;z-index:7;padding:26px 14px}
+.js .intro-copy{opacity:0} /* hidden until the sparkle intro reveals it (avoids a flash of the text before JS/fonts load) */
 .intro-copy::before{content:"";position:absolute;inset:-12% -10%;background:radial-gradient(ellipse at center,rgba(8,2,4,.88),rgba(8,2,4,.6) 48%,transparent 72%);z-index:-1}
 .intro-kicker{font-family:var(--display);font-size:.7rem;letter-spacing:.3em;color:var(--gold)}
 .intro-guest{font-family:var(--display);font-size:.95rem;letter-spacing:.16em;color:var(--ivory);margin-top:.9em}
